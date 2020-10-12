@@ -18,4 +18,11 @@ describe('User', function() {
     expect(user).to.be.an.instanceof(User);
   });
 
+  it('should contain a User\'s favorite recipes', function() {
+    expect(user.favoriteRecipes).to.deep.equal([]);
+  });
+
+  it('should contain a User\s recipes to cook', function() {
+    expect(user.recipesToCook).to.deep.equal([]);
+  });
 });
