@@ -2,9 +2,11 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const Recipe = require('../src/recipe.js');
+const User = require('../src/user.js');
 
 describe('Recipe', function() {
-  let recipe;
+  let recipe1;
+  let recipe2;
   let id = 1;
   let name = "Dirty Steve's Original Wing Sauce";
   let image = "https://spoonacular.com/recipeImages/595736-556x370.jpg";
@@ -30,10 +32,11 @@ describe('Recipe', function() {
       }
   }];
   let tags = ["sauce", "topping"];
+  let differentTags = ["super spicey sauce", "dessert"]
 
 
   beforeEach(() => {
-    recipe = new Recipe(id, image, ingredients, instructions, name, tags);
+    recipe1 = new Recipe(id, image, ingredients, instructions, name, tags);
   });
 
   it('should be a function', function() {
@@ -41,22 +44,22 @@ describe('Recipe', function() {
   });
 
   it('should be an instance of Recipe', function() {
-    expect(recipe).to.be.an.instanceof(Recipe);
+    expect(recipe1).to.be.an.instanceof(Recipe);
   });
 
   it('should have a recipe id', function() {
-    expect(recipe.id).to.equal(1)
+    expect(recipe1.id).to.equal(1)
   });
 
   it('should have an image', function() {
-    expect(recipe.image).to.be.equal("https://spoonacular.com/recipeImages/595736-556x370.jpg");
+    expect(recipe1.image).to.be.equal("https://spoonacular.com/recipeImages/595736-556x370.jpg");
   });
 
   it('should have ingredients for the recipe', function() {
-    expect(recipe.ingredients).to.deep.equal(ingredients);
+    expect(recipe1.ingredients).to.deep.equal(ingredients);
   });
   it('should have instructions for a recipe', function() {
-    expect(recipe.instructions).to.deep.equal([{
+    expect(recipe1.instructions).to.deep.equal([{
       "instruction": "In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
       "number": 1
     },
@@ -67,11 +70,11 @@ describe('Recipe', function() {
   });
 
   it('should have a name for the recipe', function() {
-    expect(recipe.name).to.equal("Dirty Steve's Original Wing Sauce");
+    expect(recipe1.name).to.equal("Dirty Steve's Original Wing Sauce");
   });
 
   it('should have tags for the recipe', function() {
-    expect(recipe.tags).to.deep.equal(['sauce', 'topping']);
+    expect(recipe1.tags).to.deep.equal(['sauce', 'topping']);
   });
 
   it('should calculate cost of ingredients', function() {
@@ -87,15 +90,21 @@ describe('Recipe', function() {
         "estimatedCostInCents": 582
       }
     ]
-    let cost = recipe.getCost(ingredientCosts);
+    let cost = recipe1.getCost(ingredientCosts);
     expect(cost).to.equal(13.77)
   })
 
   it('should return a recipie\'s instructions', function() {
-    let directions = recipe.getInstructions();
+    let directions = recipe1.getInstructions();
     let steps = ["Step 1: In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
     "Step 2: Add egg and vanilla and mix until combined."];
 
     expect(directions).to.deep.equal(steps);
+  })
+
+  it('should be able to search recipe by tag', function() {
+    let recipeArray = [recipe1]
+    let find = recipe1.filterRecipe("toppings");
+    expect(find).to.deep.equal(recipeArray);
   })
 });
