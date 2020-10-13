@@ -21,7 +21,13 @@ describe('Recipe', function() {
     "quantity": {
       "amount": 1.5,
       "unit": "c"
-    }
+    }},
+    {
+      "id": 18372,
+      "quantity": {
+        "amount": 2,
+        "unit": "c"
+      }
   }];
   let tags = ["sauce", "topping"];
 
@@ -52,7 +58,14 @@ describe('Recipe', function() {
       "quantity": {
         "amount": 1.5,
         "unit": "c"
-      }}]);
+      }},
+      {
+        "id": 18372,
+        "quantity": {
+          "amount": 2,
+          "unit": "c"
+        }
+    }]);
   });
   it('should have instructions for a recipe', function() {
     expect(recipe.instructions).to.deep.equal([{
@@ -72,4 +85,21 @@ describe('Recipe', function() {
   it('should have tags for the recipe', function() {
     expect(recipe.tags).to.deep.equal(['sauce', 'topping']);
   });
+
+  it('should calculate cost of ingredients', function() {
+    let ingredientCosts = [
+      {
+        "id": 20081,
+        "name": "wheat flour",
+        "estimatedCostInCents": 142
+      },
+      {
+        "id": 18372,
+        "name": "bicarbonate of soda",
+        "estimatedCostInCents": 582
+      }
+    ]
+    let cost = recipe.getCost(ingredientCosts);
+    expect(cost).to.equal(13.77)
+  })
 });
