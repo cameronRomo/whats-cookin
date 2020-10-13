@@ -53,19 +53,7 @@ describe('Recipe', function() {
   });
 
   it('should have ingredients for the recipe', function() {
-    expect(recipe.ingredients).to.deep.equal([{
-      "id": 20081,
-      "quantity": {
-        "amount": 1.5,
-        "unit": "c"
-      }},
-      {
-        "id": 18372,
-        "quantity": {
-          "amount": 2,
-          "unit": "c"
-        }
-    }]);
+    expect(recipe.ingredients).to.deep.equal(ingredients);
   });
   it('should have instructions for a recipe', function() {
     expect(recipe.instructions).to.deep.equal([{
@@ -101,5 +89,13 @@ describe('Recipe', function() {
     ]
     let cost = recipe.getCost(ingredientCosts);
     expect(cost).to.equal(13.77)
+  })
+
+  it('should return a recipie\'s instructions', function() {
+    let directions = recipe.getInstructions();
+    let steps = ["Step 1: In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
+    "Step 2: Add egg and vanilla and mix until combined."];
+
+    expect(directions).to.deep.equal(steps);
   })
 });

@@ -9,6 +9,15 @@ class Recipe {
     this.name = name;
     this.tags = tags
   }
+
+  getInstructions() {
+    let recipeSteps = this.instructions.map(step => {
+      let progression = `Step ${step.number}: ${step.instruction}`;
+      return progression;
+    })
+    return recipeSteps;
+  }
+
   getCost() {
     let recipeCost;
     let recipeIngredient;
