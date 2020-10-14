@@ -1,3 +1,8 @@
+const filterRecipe = require('../src/user.js');
+const searchRecipeByIngredient = require('../src/user.js');
+//is this the correct way to import method? 
+//double dot in require
+
 class User {
   constructor() {
     this.favoriteRecipes = [];
@@ -16,18 +21,14 @@ class User {
   addRecipeToCook(recipe) {
     this.recipesToCook.push(recipe);
   }
-  filterUserRecipe(recipesContainer, recipeTag) {
-    if (recipesContainer === this.favoriteRecipes) {
-      let searchResults = this.favoriteRecipes.reduce((filterResults, recipe) => {
-        recipe.tags.forEach(tag => {
-          if (recipeTag === tag) {
-            filterResults.push(recipe);
-          }
-        })
-        return filterResults;
-      }, []);
-      return searchResults;
-    }
+
+  filterUserRecipe(recipeTag, recipesContainer) {
+    //invoke from Recipe class
+    filterRecipe(recipeTag, recipesContainer);
+  }
+
+  searchUserRecipe(ingredient) {
+    searchRecipeByIngredient(ingredient, this.favoriteRecipes);
   }
 }
 
