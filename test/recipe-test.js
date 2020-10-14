@@ -102,9 +102,8 @@ describe('Recipe', function() {
     expect(directions).to.deep.equal(steps);
   })
 
-  it('should be able to search recipe by tag', function() {
+  it('should be able to filter recipe by tag', function() {
     let recipeArray = [recipe1]
-    let find = recipe1.filterRecipe("toppings");
-    expect(find).to.deep.equal(recipeArray);
+    expect(recipe1).to.deep.equal(recipeArray);
   })
 });

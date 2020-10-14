@@ -1,5 +1,6 @@
 const ingredientsInfo = require('../data/ingredients');
-const recipiesInfo = require('../data/recipes');
+// const recipesInfo = require('../data/recipes');
+
 
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
@@ -10,34 +11,44 @@ class Recipe {
     this.name = name;
     this.tags = tags;
   }
-
-  searchRecipeByIngredient(ingredient) {
-  let searchIngredients =  ingredientsInfo.find(item => {
-    if (ingredient === item.name) {
-      return item;
-    }
-  })
-  let searchRecipes = recipesInfo.reduce((results, recipe) => {
-    recipe.ingredients.forEach(item => {
-      if (item.id === searchIngredients.id) {
-        results.push(recipe)
+  //create test to test for 2nd parameter of passing array data
+  searchRecipeByIngredient(ingredient, recipesContainer) {
+    let searchIngredients =  ingredientsInfo.find(item => {
+      if (ingredient === item.name) {
+        return item;
       }
     })
-    return results;
-  }, [])
-  return searchRecipes;
-}
-
-  filterRecipe(recipeTag) {
-    let filteredRecipies = recipiesInfo.reduce((filteredData, recipe) => {
-      recipe.tags.forEach(tag => {
-        if (recipeTag === tag) {
-          filteredData.push(recipe);
+    let searchRecipes = recipesContainer.reduce((results, recipe) => {
+      recipe.ingredients.forEach(item => {
+        if (item.id === searchIngredients.id) {
+          results.push(recipe)
         }
       })
-      return filteredData;
+      return results;
     }, [])
-    return filteredRecipies;
+    return searchRecipes;
+  }
+
+  searchRecipeByName(recipeName, recipesContainer) {
+    let searchRecipes = recipesContainer.reduce((results, recipe) => {
+      if (recipeName.toLowerCase() === recipe.name.toLowerCase()) {
+        results.push(recipe)
+      }
+      return results
+    }, []);
+    return searchRecipes
+  }
+
+  filterRecipe(recipeTag, recipesContainer) {
+    let filterResults = recipesContainer.reduce((results, recipe) => {
+      recipe.tags.forEach(tag => {
+        if (recipeTag === tag) {
+          results.push(recipe);
+        }
+      })
+      return results;
+    }, []);
+    return filterResults;
   }
 
   getInstructions() {
@@ -54,7 +65,7 @@ class Recipe {
     let recipeMath = this.ingredients.reduce((totalCost, ingredient) => {
       recipeCost = ingredient.quantity.amount;
       recipeIngredient = ingredientsInfo.find(cost => {
-         return cost.id === ingredient.id;
+        return cost.id === ingredient.id;
       })
       totalCost += recipeCost * recipeIngredient.estimatedCostInCents;
       return totalCost;
@@ -66,3 +77,9 @@ class Recipe {
 if (typeof module !== 'undefined') {
   module.exports = Recipe;
 }
+
+//module.exports = {
+//   1: Recipe,
+//   2: searchRecipeByIngredient(),
+//   3: filterRecipe();
+// }
