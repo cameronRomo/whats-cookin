@@ -69,7 +69,6 @@ describe('User Methods', function() {
     user.addToFavoriteRecipes(recipe1);
     expect(user.favoriteRecipes).to.deep.equal(recipeArray);
   });
-  //add tests for favoritedRecipe true/false
   it('should remove a favorite recipe if unfavorited', function() {
     recipe1.favoritedRecipe = true;
     user.addToFavoriteRecipes(recipe1);
@@ -79,17 +78,5 @@ describe('User Methods', function() {
   it('should add a recipe to cook for the week', function() {
     user.addRecipeToCook(recipe1);
     expect(user.recipesToCook).to.deep.equal(recipeArray);
-  });
-  //waiting for John Adams
-  // it('should be able to filter favoriteRecipes by tag', function() {
-  //   expect(user.filterUserRecipe(user.favoriteRecipes, "sauce")).to.deep.equal(recipeArray);
-  // });
-  // it('should be able to filter recipesToCook by tag', function() {
-  //   expect(user.filterUserRecipe(user.favoriteRecipes, "sauce")).to.deep.equal(recipeArray);
-  // });
-  it.skip('should be able to search recipes to cook by ingredient', function() {
-    user.addRecipeToCook(recipe1);
-    let search = user.searchUserRecipes("sauce");
-    expect(search).to.deep.equal(recipeArray);
   });
 });
