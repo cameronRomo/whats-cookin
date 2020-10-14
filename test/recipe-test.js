@@ -101,9 +101,15 @@ describe('Recipe', function() {
 
     expect(directions).to.deep.equal(steps);
   })
-
   it('should be able to filter recipe by tag', function() {
-    let recipeArray = [recipe1]
-    expect(recipe1).to.deep.equal(recipeArray);
-  })
-});
+      let recipeArray = [recipe1];
+      let filteredRecipes = recipe1.filterRecipe('sauce', recipeArray)
+      expect(filteredRecipes).to.deep.equal(recipeArray);
+    });
+
+    it('should not be able to filter recipe by a tag that doesn\'t exist', function() {
+      let recipeArray = []
+      let filteredRecipes = recipe1.filterRecipe('nonsense', recipeArray)
+      expect(filteredRecipes).to.deep.equal(recipeArray);
+    });
+  });

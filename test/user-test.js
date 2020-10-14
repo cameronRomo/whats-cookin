@@ -5,12 +5,12 @@ const User = require('../src/User');
 const Recipe = require('../src/Recipe');
 
 describe('User', function() {
-    
+
   let user;
   beforeEach(() => {
     user = new User();
   })
-  
+
   it('should be a function', function() {
     expect(User).to.be.a('function');
   });
@@ -30,7 +30,7 @@ describe('User', function() {
 });
 
 describe('User Methods', function() {
-    
+
   let user;
   let recipe1;
   let id = 1;
@@ -87,7 +87,7 @@ describe('User Methods', function() {
   // it('should be able to filter recipesToCook by tag', function() {
   //   expect(user.filterUserRecipe(user.favoriteRecipes, "sauce")).to.deep.equal(recipeArray);
   // });
-  it('should be able to search recipes to cook by ingredient', function() {
+  it.skip('should be able to search recipes to cook by ingredient', function() {
     user.addRecipeToCook(recipe1);
     let search = user.searchUserRecipes("sauce");
     expect(search).to.deep.equal(recipeArray);
