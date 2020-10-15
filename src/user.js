@@ -1,13 +1,16 @@
 const filterRecipe = require('../src/user.js');
 const searchRecipeByIngredient = require('../src/user.js');
-//is this the correct way to import method? 
-//double dot in require
+const Pantry = require("../src/pantry.js");
+//is this the correct way to import method?
 
 class User {
-  constructor() {
+  constructor(id, name, pantry) {
+    this.id = id;
+    this.name = name;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
-  } 
+    this.pantry = new Pantry(pantry);
+  }
 
   addToFavoriteRecipes(recipe) {
     if (!recipe.favoritedRecipe) {
