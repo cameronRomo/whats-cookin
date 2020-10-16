@@ -1,0 +1,72 @@
+.body {
+  margin: 0;
+}
+.nav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+  display: flex;
+  padding: 5px 0 5px 0;
+}
+
+.nav__user {
+  display: flex;
+
+  align-items: center;
+}
+
+.nav__div {
+  margin-left: 500px;
+}
+
+.nav__div__button{
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 8px 16px;
+  margin-left: 5px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.nav__div__button:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav__div__button:active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.nav__input {
+  margin-left: 5px;
+}
+
+.nav__user {
+  margin: 0 10px 0 5px;
+}
+
+#grocery-button {
+  margin-right: 10px;
+}
+
+.body__article {
+  width: 100%;
+  height: 600px;
+  position: relative;
+}
+
+.body__article__image {
+  width: 100%;
+  height: 100%;
+}
+
+.body__article__div {
+  position: absolute;
+  height: 250px;
+  width: 250px;
+  background-color: white;
+  bottom: 100px;
+  right: 100px;
+}

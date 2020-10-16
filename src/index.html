@@ -2,15 +2,43 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="./styles.css">
     <title>Whats Cookin</title>
   </head>
-  <body>
+  <nav class="nav">
+    <label class="nav__user" for="users">Choose a user:</label>
+    <select class="nav__user__dropdown" name="users">
+      <option class="nav__user__dropdown__choice" value="user-1">User 1</option>
+      <option class="nav__user__dropdown__choice" value="user-2">User 2</option>
+      <option class="nav__user__dropdown__choice" value="user-3">User 3</option>
+      <option class="nav__user__dropdown__choice" value="user-4">User 4</option>
+    </select>
+    <input class="nav__input" type="text" placeholder="Search By Ingredient..">
+    <div class="nav__div">
+      <button class="nav__div__button" id="cook-button">WHAT TO COOK</button>
+      <button class="nav__div__button" id="favorite-button">FAVORITE RECIPES</button>
+      <button class="nav__div__button" id="grocery-button">YOUR GROCERY LIST</button>
+    <div>
+  </nav>
+  <body class="body">
     <h1>Whats Cookin</h1>
+    <article class="body__article">
+      <div class="body__article__div">Lentil and Orzo Stew With Roasted Eggplant</div>
+      <img class="body__article__image" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
+    </article>
+    <main class="body__main">
+      <section class="body__main__section">
+        <article class="body__main__section__article"></article>
+        <article class="body__main__section__article"></article>
+        <article class="body__main__section__article"></article>
+        <article class="body__main__section__article"></article>
+      </section>
+    </main>
 
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
-    <script type="text/javascript" src="../src/recipe.js"></script>
     <script type="text/javascript" src="../data/ingredients.js"></script>
+    <script type="text/javascript" src="../src/recipe.js"></script>
     <script type="text/javascript" src="./scripts.js"></script>
   </body>
 </html>
