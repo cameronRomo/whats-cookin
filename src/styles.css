@@ -15,7 +15,7 @@
 }
 
 .nav__div {
-  margin-left: 500px;
+  margin-left: 475px;
 }
 
 .nav__div__button{
@@ -69,4 +69,30 @@
   background-color: white;
   bottom: 100px;
   right: 100px;
+}
+
+.body__main__section {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.body__main__section__article {
+  height: 450px;
+  width: 375px;
+  margin: 25px 0 25px 0;
+  background-color: #2196F3;
+  display: flex;
+  flex-direction: column;
+}
+
+.body__main__section__article__image {
+  max-width:100%;
+  flex: 0 1 auto;
+}
+
+.body__main__section__article__text {
+  background-color: purple;
+  height: max-content;
+  flex: 1 1 auto
 }
