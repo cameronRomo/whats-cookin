@@ -21,26 +21,29 @@ var span = document.getElementsByClassName("close");
 
 
 // query selectors
+const navDivDropdown = document.querySelector('.nav__div__one__dropdown');
 const recipeSection = document.querySelector('.body__main__section');
 
 // render recipes
 const recipeInstantiation = createRecipes();
+const userInstantiation = createUsers();
 const ingredientHashmap = createIngredientHash();
 
 window.onload = displayHandler;
 
 // //When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 
 
 
 
 function displayHandler() {
   showRecipes();
+  showUsers();
   const allModals = document.getElementsByClassName("body__main__section__article__button");
   for (let i = 0; i < allModals.length; i++) {
     allModals[i].addEventListener('click', openModals)
@@ -51,6 +54,15 @@ function displayHandler() {
     })
   }
   recipeInstantiation;
+}
+
+function createUsers() {
+  const userInstances = [];
+  usersData.forEach(user => {
+    let newUser = new User(user.id, user.name, user.pantry);
+    userInstances.push(newUser);
+  })
+  return userInstances;
 }
 
 function createIngredientHash() {
@@ -68,12 +80,21 @@ function createRecipes() {
   })
   return recipeInstances;
 }
+function showUsers() {
+  let userDropDownList = userInstantiation.reduce((usersHTML, user) => {
+    usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.id}">${user.name}</option>`
+    return usersHTML;
+  }, '')
+  navDivDropdown.innerHTML = userDropDownList
+  // add name to option tags
+}
+
 function showRecipes() {
   let recipeHTML = '';
   recipeInstantiation.forEach(recipe => {
     let recipeNames = recipe.getIngredients();
     let showInstructions = recipe.getInstructions();
-    let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {      
+    let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
       instructionDetail += `<li>${instruction}</li>`;
       return instructionDetail;
     }, '')
@@ -100,8 +121,7 @@ function showRecipes() {
                             </div>
                           </div>
                         </article>`;
-    recipeHTML += recipeDisplay;      
+    recipeHTML += recipeDisplay;
   })
   recipeSection.innerHTML = recipeHTML;
 }
-

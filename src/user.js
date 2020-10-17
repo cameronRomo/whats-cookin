@@ -1,4 +1,3 @@
-import Pantry from "../src/pantry.js"
 //is this the correct way to import method?
 
 class User {
