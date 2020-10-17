@@ -25,16 +25,18 @@ const recipeSection = document.querySelector('.body__main__section');
 
 // render recipes
 const recipeInstantiation = createRecipes();
+const userInstantiation = createUsers();
+console.log(userInstantiation);
 const ingredientHashmap = createIngredientHash();
 
 window.onload = displayHandler;
 
 // //When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
 
 
 
@@ -51,6 +53,15 @@ function displayHandler() {
     })
   }
   recipeInstantiation;
+}
+
+function createUsers() {
+  const userInstances = [];
+  usersData.forEach(user => {
+    let newUser = new User(user.id, user.name, user.pantry);
+    userInstances.push(newUser);
+  })
+  return userInstances;
 }
 
 function createIngredientHash() {
@@ -73,7 +84,7 @@ function showRecipes() {
   recipeInstantiation.forEach(recipe => {
     let recipeNames = recipe.getIngredients();
     let showInstructions = recipe.getInstructions();
-    let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {      
+    let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
       instructionDetail += `<li>${instruction}</li>`;
       return instructionDetail;
     }, '')
@@ -100,8 +111,7 @@ function showRecipes() {
                             </div>
                           </div>
                         </article>`;
-    recipeHTML += recipeDisplay;      
+    recipeHTML += recipeDisplay;
   })
   recipeSection.innerHTML = recipeHTML;
 }
-
