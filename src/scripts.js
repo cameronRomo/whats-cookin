@@ -4,16 +4,10 @@
 //const ingredientsData = require("../data/ingredients");
 
 //const ingredientsData = require("../data/ingredients");
-
-// allModals.forEach(modal => {
-//   modal.onclick((e) => {
-//     console.log(this, e)
-//   })
-// })
-
+let modal; 
 function openModals(event) {
   let eventId = event.target.id;
-  const modal = document.getElementById(eventId + 'modal');
+  modal = document.getElementById(eventId + 'modal');
   modal.style.display = 'block';
 }
 
@@ -21,24 +15,7 @@ function openModals(event) {
 var btn = document.getElementById("myBtn");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-//When the user clicks on the button, open the modal
-// btn.onclick = function() {
-//   modal.style.display = "block";
-// }
-
-// //When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//   modal.style.display = "none";
-// }
-
-// //When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
+var span = document.getElementsByClassName("close");
 
 
 // query selectors
@@ -50,12 +27,26 @@ const ingredientHashmap = createIngredientHash();
 
 window.onload = displayHandler;
 
+// //When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
+
+
+
+
 function displayHandler() {
   showRecipes();
   const allModals = document.getElementsByClassName("body__main__section__article__button");
   for (let i = 0; i < allModals.length; i++) {
-
     allModals[i].addEventListener('click', openModals)
+  }
+  for (let i = 0; i < span.length; i++) {
+    span[i].addEventListener('click', () => {
+      modal.style.display = "none";
+    })
   }
   recipeInstantiation;
 }
