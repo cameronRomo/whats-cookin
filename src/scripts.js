@@ -21,12 +21,12 @@ var span = document.getElementsByClassName("close");
 
 
 // query selectors
+const navDivDropdown = document.querySelector('.nav__div__one__dropdown');
 const recipeSection = document.querySelector('.body__main__section');
 
 // render recipes
 const recipeInstantiation = createRecipes();
 const userInstantiation = createUsers();
-console.log(userInstantiation);
 const ingredientHashmap = createIngredientHash();
 
 window.onload = displayHandler;
@@ -43,6 +43,7 @@ window.onclick = function(event) {
 
 function displayHandler() {
   showRecipes();
+  showUsers();
   const allModals = document.getElementsByClassName("body__main__section__article__button");
   for (let i = 0; i < allModals.length; i++) {
     allModals[i].addEventListener('click', openModals)
@@ -79,6 +80,15 @@ function createRecipes() {
   })
   return recipeInstances;
 }
+function showUsers() {
+  let userDropDownList = userInstantiation.reduce((usersHTML, user) => {
+    usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.id}">${user.name}</option>`
+    return usersHTML;
+  }, '')
+  navDivDropdown.innerHTML = userDropDownList
+  // add name to option tags
+}
+
 function showRecipes() {
   let recipeHTML = '';
   recipeInstantiation.forEach(recipe => {
