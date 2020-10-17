@@ -1,4 +1,3 @@
-const User = require("../src/user.js")
 
 class Pantry {
   constructor(pantry = []) {
