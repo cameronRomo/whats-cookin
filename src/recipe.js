@@ -55,6 +55,14 @@ class Recipe {
     return recipeSteps;
   }
 
+  getIngredients() {
+    let recipeIngredients = this.ingredients.map(ingredient => {
+      
+      return ingredientHashmap[ingredient.id].name;
+    })
+    return recipeIngredients;
+  }
+
   getCost() {
     let recipeCost;
     let recipeIngredient;
