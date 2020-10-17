@@ -1,6 +1,4 @@
-const filterRecipe = require('../src/user.js');
-const searchRecipeByIngredient = require('../src/user.js');
-const Pantry = require("../src/pantry.js");
+import Pantry from "../src/pantry.js"
 //is this the correct way to import method?
 
 class User {

@@ -1,7 +1,3 @@
-const ingredientsInfo = require('../data/ingredients');
-// const recipesInfo = require('../data/recipes');
-
-
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
     this.id = id;
@@ -53,10 +49,17 @@ class Recipe {
 
   getInstructions() {
     let recipeSteps = this.instructions.map(step => {
-      let progression = `Step ${step.number}: ${step.instruction}`;
-      return progression;
+      return step.instruction;
     })
     return recipeSteps;
+  }
+
+  getIngredients() {
+    let recipeIngredients = this.ingredients.map(ingredient => {
+
+      return ingredientHashmap[ingredient.id].name;
+    })
+    return recipeIngredients;
   }
 
   getCost() {
