@@ -100,11 +100,11 @@ html,body {
   flex: 1 1 auto
 }
 
-button {
+.body__main__section__article__button {
   flex: 0 1 40px;
 }
 
-.content {
+.nav__content {
   width: 100%;
   height: 50px;
   margin: 15px 0 15px 0;
@@ -112,7 +112,8 @@ button {
   align-items: center;
   justify-content: center;
 }
-.slider-wrapper {
+
+.nav__content__slider-wrapper {
   font-size: 40px;
   color:#aaa;
   font-weight: bold;
@@ -121,13 +122,15 @@ button {
   align-items: center;
   justify-content: center;
 }
-.slider{
+
+.nav__content__slider{
   height: 50px;
   padding-left:15px;
   overflow: hidden;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
-.slider div {
+
+.nav__content__slider div {
   color:#fff;
   height: 50px;
   margin-bottom: 50px;
@@ -135,16 +138,20 @@ button {
   text-align: center;
   box-sizing: border-box;
 }
-.slider-text1 {
+
+.nav__content__slider-text1 {
   background: lightgreen;
   animation: slide 7s linear infinite;
 }
-.slider-text2 {
+
+.nav__content__slider-text2 {
   background: skyblue;
 }
-.slider-text3 {
+
+.nav__content__slider-text3 {
   background: lightcoral;
 }
+
 @keyframes slide {
   0% {margin-top:-300px;}
   5% {margin-top:-200px;}
@@ -155,7 +162,7 @@ button {
   100% {margin-top:0px;}
 }
 
-.modal {
+.body__main__section__article__modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -169,7 +176,7 @@ button {
 }
 
 /* Modal Content/Box */
-.modal-content {
+.body__main__section__article__modal__content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
