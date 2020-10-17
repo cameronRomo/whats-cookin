@@ -9,19 +9,20 @@ html,body {
   background-color: #e9e9e9;
   display: flex;
   padding: 5px 0 5px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
-.nav__user {
+.nav__div__one {
   display: flex;
+}
 
+.nav__div__one__user {
+  display: flex;
   align-items: center;
 }
 
-.nav__div {
-  margin-left: 485px;
-}
-
-.nav__div__button{
+.nav__div__two__button{
   float: left;
   display: block;
   color: black;
@@ -32,21 +33,21 @@ html,body {
   font-size: 17px;
 }
 
-.nav__div__button:hover {
+.nav__div__two__button:hover {
   background-color: #ddd;
   color: black;
 }
 
-.nav__div__button:active {
+.nav__div__two__button:active {
   background-color: #2196F3;
   color: white;
 }
 
-.nav__input {
+.nav__div__one__input {
   margin-left: 5px;
 }
 
-.nav__user {
+.nav__div__one__user {
   margin: 0 10px 0 5px;
 }
 
