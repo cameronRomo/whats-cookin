@@ -49,15 +49,14 @@ class Recipe {
 
   getInstructions() {
     let recipeSteps = this.instructions.map(step => {
-      let progression = `Step ${step.number}: ${step.instruction}`;
-      return progression;
+      return step.instruction;
     })
     return recipeSteps;
   }
 
   getIngredients() {
     let recipeIngredients = this.ingredients.map(ingredient => {
-      
+
       return ingredientHashmap[ingredient.id].name;
     })
     return recipeIngredients;
