@@ -97,20 +97,19 @@ function groceryListener() {
 }
 
 function addFavoriteRecipe() {
-  let test1 = Number(currentRecipe);
-  let test = recipeInstantiation.forEach(item => {
-    if (item.id === test1) {
+  let recipeNumber = Number(currentRecipe);
+  recipeInstantiation.forEach(item => {
+    if (item.id === recipeNumber) {
       currentUser.addToFavoriteRecipes(item);
     }
   })
 }
 
 function addToCook() {
-  console.log("something");
-  userInstantiation.forEach(user => {
-    if (user.id === currentUser.id) {
-      console.log("poop");
-      currentUser.recipesToCook.push(currentRecipe);
+  let recipeNumber = Number(currentRecipe);
+  recipeInstantiation.forEach(recipe => {
+    if (recipe.id === recipeNumber) {
+      currentUser.addRecipeToCook(recipe);
     }
   })
 
