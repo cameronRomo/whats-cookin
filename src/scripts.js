@@ -1,6 +1,9 @@
+let currentUser;
 let modal;
+let currentRecipe;
 function openModals(event) {
   let eventId = event.target.id;
+  currentRecipe = eventId;
   modal = document.getElementById(eventId + 'modal');
   modal.style.display = 'block';
 }
@@ -87,9 +90,11 @@ function groceryListener() {
 }
 
 function addFavoriteRecipe() {
-  // userInstantiation.filter(user => {
-  //   user.id ==
-  // })
+  userInstantiation.forEach(user => {
+    if (user.id === currentUser.id) {
+      currentUser.favoriteRecipes.push(currentRecipe);
+    }
+  })
   console.log('hello');
  //how to invoke user method?
  //addToFavoriteReciopes(recipe)
@@ -139,7 +144,6 @@ function showUsers() {
   document.querySelector(".nav__div__one__dropdown").innerHTML = userDropDownList;
 }
 
-let currentUser;
 
 function changed(option){
  currentUser = userInstantiation.find(user => {
