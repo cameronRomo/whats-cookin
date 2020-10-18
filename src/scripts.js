@@ -1,11 +1,3 @@
-//const recipeData = require("../data/recipes");
-// Get the modal
-
-//const recipeData = require("../data/recipes");
-
-//const ingredientsData = require("../data/ingredients");
-
-//const ingredientsData = require("../data/ingredients");
 let modal;
 function openModals(event) {
   let eventId = event.target.id;
@@ -28,6 +20,7 @@ const recipeSection = document.querySelector('.body__main__section');
 const recipeInstantiation = createRecipes();
 const userInstantiation = createUsers();
 const ingredientHashmap = createIngredientHash();
+
 
 window.onload = displayHandler;
 
@@ -92,15 +85,26 @@ function showUsers() {
 function showRecipes() {
   let recipeHTML = '';
   recipeInstantiation.forEach(recipe => {
-    let recipeNames = recipe.getIngredients();
-    let showInstructions = recipe.getInstructions();
+    const recipeNames = recipe.getIngredients();
+    const showInstructions = recipe.getInstructions();
     let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
       instructionDetail += `<li>${instruction}</li>`;
       return instructionDetail;
     }, '')
-    let ingredientHTML = recipeNames.reduce((ingredientDetail, ingredient) => {
-      ingredientDetail += `<li>${ingredient}</li>`;
+    const amounts = recipe.ingredients.map(item => {
+      item.quantity.amount = +item.quantity.amount.toFixed(2);
+      return item.quantity.amount + ' ' + item.quantity.unit + ' ';
+    })
+    const ingredientNames = recipeNames.reduce((ingredientDetail, ingredient) => {
+      ingredientDetail.push(ingredient)
       return ingredientDetail;
+    }, [])
+    const combineIngredientInfo = amounts.map((value, index) => {
+     return value + ingredientNames[index]
+     })
+    const ingredientsHTML = combineIngredientInfo.reduce((displayData, info) => {
+      displayData += `<li>${info}</li>`;
+      return displayData;
     }, '')
     let recipeDisplay = `<article class="body__main__section__article">
                           <img class="body__main__section__article__image" src="${recipe.image}">
@@ -110,9 +114,10 @@ function showRecipes() {
                             <div class="body__main__section__article__modal__content">
                               <span class="close">&times;</span>
                               <div clas="body__main__section__article__modal__content__wrapper">
+                                <h2>${recipe.name}</h2>
                                 <img src="${recipe.image}">
                                 <ul>
-                                  ${ingredientHTML}
+                                 ${ingredientsHTML}
                                 </ul>
                                 <ol>
                                   ${instructionsHTML}
