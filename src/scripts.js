@@ -139,6 +139,15 @@ function showUsers() {
   document.querySelector(".nav__div__one__dropdown").innerHTML = userDropDownList;
 }
 
+let currentUser;
+
+function changed(option){
+ currentUser = userInstantiation.find(user => {
+   return option.value === user.name;
+ })
+ console.log(currentUser);
+}
+
 function getAmounts() {
   recipeInstantiation.forEach(recipe => {
     recipe.ingredients.map(item => {
