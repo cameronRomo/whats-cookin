@@ -8,6 +8,7 @@ class Recipe {
     this.tags = tags;
   }
   //create test to test for 2nd parameter of passing array data
+
   searchRecipeByIngredient(ingredient, recipesContainer) {
     let searchIngredients =  ingredientsInfo.find(item => {
       if (ingredient === item.name) {
