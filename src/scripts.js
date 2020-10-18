@@ -87,6 +87,9 @@ function groceryListener() {
 }
 
 function addFavoriteRecipe() {
+  // userInstantiation.filter(user => {
+  //   user.id ==
+  // })
   console.log('hello');
  //how to invoke user method?
  //addToFavoriteReciopes(recipe)
@@ -129,7 +132,20 @@ function showUsers() {
     return usersHTML;
   }, '')
   navDivDropdown.innerHTML = userDropDownList
-  // add name to option tags
+  userDropDownList = userInstantiation.reduce((usersHTML, user) =>
+    usersHTML +=
+    `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`
+  , '')
+  document.querySelector(".nav__div__one__dropdown").innerHTML = userDropDownList;
+}
+
+function getAmounts() {
+  recipeInstantiation.forEach(recipe => {
+    recipe.ingredients.map(item => {
+      item.quantity.amount = +item.quantity.amount.toFixed(2);
+      return item.quantity.amount + ' ' + item.quantity.unit + ' ';
+    })
+  })
 }
 
 function showRecipes() {
@@ -169,7 +185,7 @@ function showRecipes() {
                                 <h2>${recipe.name}</h2>
                                 <div class="body__main__section__article__modal__content__wrapper__div">
                                   <img src="${recipe.image}">
-                                  <ul>  
+                                  <ul>
                                   ${ingredientsHTML}
                                   </ul>
                                 </div>
