@@ -199,3 +199,7 @@ html,body {
   text-decoration: none;
   cursor: pointer;
 }
+
+.body__main__section__article__modal__content__wrapper__div {
+  display: flex;
+}

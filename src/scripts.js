@@ -6,11 +6,13 @@ function openModals(event) {
 }
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+const btn = document.getElementById("myBtn");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close");
-
+const span = document.getElementsByClassName("close");
+const favoriteButton = document.getElementsByClassName('favorite-button');
+const allModals = document.getElementsByClassName("body__main__section__article__button");
+const groceryButton = document.getElementsByClassName('grocery-button');
 
 // query selectors
 const navDivDropdown = document.querySelector('.nav__div__one__dropdown');
@@ -37,17 +39,65 @@ window.onclick = function(event) {
 function displayHandler() {
   showRecipes();
   showUsers();
-  const allModals = document.getElementsByClassName("body__main__section__article__button");
+  modalListener();
+  modalCloseListener();
+  favoriteListener();
+  groceryListener();
+  // for (let i = 0; i < allModals.length; i++) {
+  //   allModals[i].addEventListener('click', openModals)
+  // }
+  // for (let i = 0; i < span.length; i++) {
+  //   span[i].addEventListener('click', () => {
+  //     modal.style.display = "none";
+  //   })
+  // }
+  // for (let i = 0; i < favoriteButton.length; i++) {
+  //   favoriteButton[i].addEventListener('click', addFavoriteRecipe);
+  // }
+  // for (let i = 0; i < groceryButton.length; i++) {
+  //   groceryButton[i].addEventListener('click', addGroceryList);
+  // }
+  recipeInstantiation;
+}
+
+function modalListener() {
   for (let i = 0; i < allModals.length; i++) {
     allModals[i].addEventListener('click', openModals)
   }
+}
+
+function modalCloseListener() {
   for (let i = 0; i < span.length; i++) {
     span[i].addEventListener('click', () => {
       modal.style.display = "none";
     })
   }
-  recipeInstantiation;
 }
+
+function favoriteListener() {
+  for (let i = 0; i < favoriteButton.length; i++) {
+    favoriteButton[i].addEventListener('click', addFavoriteRecipe);
+  }
+}
+
+function groceryListener() {
+  for (let i = 0; i < groceryButton.length; i++) {
+    groceryButton[i].addEventListener('click', addGroceryList);
+  }
+}
+
+function addFavoriteRecipe() {
+  console.log('hello');
+ //how to invoke user method?
+ //addToFavoriteReciopes(recipe)
+}
+
+function addGroceryList() {
+  console.log('what up');
+  //how to invoke user method?
+ //addRecipeToCook(recipe)
+}
+
 
 function createUsers() {
   const userInstances = [];
@@ -113,12 +163,16 @@ function showRecipes() {
                           <div class="body__main__section__article__modal" id="${recipe.id + 'modal'}">
                             <div class="body__main__section__article__modal__content">
                               <span class="close">&times;</span>
+                              <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25">
+                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25">
                               <div clas="body__main__section__article__modal__content__wrapper">
                                 <h2>${recipe.name}</h2>
-                                <img src="${recipe.image}">
-                                <ul>
-                                 ${ingredientsHTML}
-                                </ul>
+                                <div class="body__main__section__article__modal__content__wrapper__div">
+                                  <img src="${recipe.image}">
+                                  <ul>  
+                                  ${ingredientsHTML}
+                                  </ul>
+                                </div>
                                 <ol>
                                   ${instructionsHTML}
                                 </ol>
