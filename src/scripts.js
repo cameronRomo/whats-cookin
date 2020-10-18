@@ -97,14 +97,12 @@ function groceryListener() {
 }
 
 function addFavoriteRecipe() {
-  userInstantiation.forEach(user => {
-    if (user.id === currentUser.id) {
-      currentUser.favoriteRecipes.push(currentRecipe);
+  let test1 = Number(currentRecipe);
+  let test = recipeInstantiation.forEach(item => {
+    if (item.id === test1) {
+      currentUser.addToFavoriteRecipes(item);
     }
   })
-  console.log('hello');
- //how to invoke user method?
- //addToFavoriteReciopes(recipe)
 }
 
 function addToCook() {
