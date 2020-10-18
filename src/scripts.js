@@ -16,7 +16,7 @@ const span = document.getElementsByClassName("close");
 const favoriteButton = document.getElementsByClassName('favorite-button');
 const allModals = document.getElementsByClassName("body__main__section__article__button");
 const groceryButton = document.getElementsByClassName('grocery-button');
-
+const cookButton = document.getElementsByClassName("cook-button");
 // query selectors
 const navDivDropdown = document.querySelector('.nav__div__one__dropdown');
 const recipeSection = document.querySelector('.body__main__section');
@@ -46,6 +46,7 @@ function displayHandler() {
   modalCloseListener();
   favoriteListener();
   groceryListener();
+  cookListener();
   // for (let i = 0; i < allModals.length; i++) {
   //   allModals[i].addEventListener('click', openModals)
   // }
@@ -66,6 +67,12 @@ function displayHandler() {
 function modalListener() {
   for (let i = 0; i < allModals.length; i++) {
     allModals[i].addEventListener('click', openModals)
+  }
+}
+
+function cookListener() {
+  for (let i = 0; i < cookButton.length; i++) {
+    cookButton[i].addEventListener('click', addToCook)
   }
 }
 
@@ -98,6 +105,17 @@ function addFavoriteRecipe() {
   console.log('hello');
  //how to invoke user method?
  //addToFavoriteReciopes(recipe)
+}
+
+function addToCook() {
+  console.log("something");
+  userInstantiation.forEach(user => {
+    if (user.id === currentUser.id) {
+      console.log("poop");
+      currentUser.recipesToCook.push(currentRecipe);
+    }
+  })
+
 }
 
 function addGroceryList() {
@@ -194,6 +212,7 @@ function showRecipes() {
                               <span class="close">&times;</span>
                               <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25">
                               <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25">
+                              <img class="cook-button" src="../assets/cooking.svg" height="25" width="25">
                               <div clas="body__main__section__article__modal__content__wrapper">
                                 <h2>${recipe.name}</h2>
                                 <div class="body__main__section__article__modal__content__wrapper__div">
