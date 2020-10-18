@@ -1,6 +1,9 @@
+let currentUser;
 let modal;
+let currentRecipe;
 function openModals(event) {
   let eventId = event.target.id;
+  currentRecipe = eventId;
   modal = document.getElementById(eventId + 'modal');
   modal.style.display = 'block';
 }
@@ -13,7 +16,7 @@ const span = document.getElementsByClassName("close");
 const favoriteButton = document.getElementsByClassName('favorite-button');
 const allModals = document.getElementsByClassName("body__main__section__article__button");
 const groceryButton = document.getElementsByClassName('grocery-button');
-
+const cookButton = document.getElementsByClassName("cook-button");
 // query selectors
 const navDivDropdown = document.querySelector('.nav__div__one__dropdown');
 const recipeSection = document.querySelector('.body__main__section');
@@ -43,6 +46,7 @@ function displayHandler() {
   modalCloseListener();
   favoriteListener();
   groceryListener();
+  cookListener();
   // for (let i = 0; i < allModals.length; i++) {
   //   allModals[i].addEventListener('click', openModals)
   // }
@@ -63,6 +67,12 @@ function displayHandler() {
 function modalListener() {
   for (let i = 0; i < allModals.length; i++) {
     allModals[i].addEventListener('click', openModals)
+  }
+}
+
+function cookListener() {
+  for (let i = 0; i < cookButton.length; i++) {
+    cookButton[i].addEventListener('click', addToCook)
   }
 }
 
@@ -87,9 +97,21 @@ function groceryListener() {
 }
 
 function addFavoriteRecipe() {
-  console.log('hello');
- //how to invoke user method?
- //addToFavoriteReciopes(recipe)
+  let recipeNumber = Number(currentRecipe);
+  recipeInstantiation.forEach(item => {
+    if (item.id === recipeNumber) {
+      currentUser.addToFavoriteRecipes(item);
+    }
+  })
+}
+
+function addToCook() {
+  let recipeNumber = Number(currentRecipe);
+  recipeInstantiation.forEach(recipe => {
+    if (recipe.id === recipeNumber) {
+      currentUser.addRecipeToCook(recipe);
+    }
+  })
 }
 
 function addGroceryList() {
@@ -129,7 +151,28 @@ function showUsers() {
     return usersHTML;
   }, '')
   navDivDropdown.innerHTML = userDropDownList
-  // add name to option tags
+  userDropDownList = userInstantiation.reduce((usersHTML, user) =>
+    usersHTML +=
+    `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`
+  , '')
+  document.querySelector(".nav__div__one__dropdown").innerHTML = userDropDownList;
+}
+
+
+function changed(option){
+ currentUser = userInstantiation.find(user => {
+   return option.value === user.name;
+ })
+ console.log(currentUser);
+}
+
+function getAmounts() {
+  recipeInstantiation.forEach(recipe => {
+    recipe.ingredients.map(item => {
+      item.quantity.amount = +item.quantity.amount.toFixed(2);
+      return item.quantity.amount + ' ' + item.quantity.unit + ' ';
+    })
+  })
 }
 
 function showRecipes() {
@@ -165,11 +208,12 @@ function showRecipes() {
                               <span class="close">&times;</span>
                               <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25">
                               <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25">
+                              <img class="cook-button" src="../assets/cooking.svg" height="25" width="25">
                               <div clas="body__main__section__article__modal__content__wrapper">
                                 <h2>${recipe.name}</h2>
                                 <div class="body__main__section__article__modal__content__wrapper__div">
                                   <img src="${recipe.image}">
-                                  <ul>  
+                                  <ul>
                                   ${ingredientsHTML}
                                   </ul>
                                 </div>
