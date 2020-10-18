@@ -9,11 +9,7 @@
   <nav class="nav">
     <div class="nav__div__one">
       <label class="nav__div__one__user" for="users">Choose a user:</label>
-      <select class="nav__div__one__dropdown" name="users">
-        <option class="nav__div__one__dropdown__choice" value="user-1">User 1</option>
-        <option class="nav__div__one__dropdown__choice" value="user-2">User 2</option>
-        <option class="nav__div__one__dropdown__choice" value="user-3">User 3</option>
-        <option class="nav__div__one__dropdown__choice" value="user-4">User 4</option>
+      <select class="nav__div__one__dropdown" onchange="changed(this)" name="users">
       </select>
       <input class="nav__div__one__input" type="text" placeholder="Search By Ingredient..">
     </div>
