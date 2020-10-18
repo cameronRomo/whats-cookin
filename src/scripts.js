@@ -112,7 +112,6 @@ function addToCook() {
       currentUser.addRecipeToCook(recipe);
     }
   })
-
 }
 
 function addGroceryList() {
