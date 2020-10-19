@@ -2,6 +2,11 @@ html,body {
   margin: 0;
   width: 100%;
   height: 100%;
+
+}
+
+body {
+  background-color: #dbdbd4;
 }
 
 .nav {
@@ -59,6 +64,8 @@ html,body {
   width: 100%;
   height: 600px;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .body__article__image {
@@ -70,9 +77,15 @@ html,body {
   position: absolute;
   height: 250px;
   width: 250px;
-  background-color: white;
+  background-color: #4B6A88;
+  font-size: 18px;
+  font-weight: bolder;
+  text-align: center;
   bottom: 100px;
   right: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .body__main__section {
@@ -96,9 +109,11 @@ html,body {
 }
 
 .body__main__section__article__text {
-  background-color: purple;
+  background-color: #4B6A88;
+  color: #C8F7C5;
   height: max-content;
-  flex: 1 1 auto
+  flex: 1 1 auto;
+  text-align: center;
 }
 
 .body__main__section__article__button {
@@ -112,11 +127,12 @@ html,body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
 }
 
 .nav__content__slider-wrapper {
   font-size: 40px;
-  color:#aaa;
+  color: black;
   font-weight: bold;
   text-transform: uppercase;
   display: flex;
@@ -163,6 +179,14 @@ html,body {
   100% {margin-top:0px;}
 }
 
+.body__main__section__article__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
 .body__main__section__article__modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -178,7 +202,9 @@ html,body {
 
 /* Modal Content/Box */
 .body__main__section__article__modal__content {
-  background-color: #fefefe;
+  background-color: #dbdbd4;
+  color: #4B6319;
+  font-size: 18px;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
@@ -202,4 +228,30 @@ html,body {
 
 .body__main__section__article__modal__content__wrapper__div {
   display: flex;
+}
+
+.nav__div__one__button {
+  height: 39px;
+  width: 39px;
+  background-image: url("../assets/loupe.svg");
+
+}
+
+.nav__div__one__button:hover {
+  background-color: grey;
+}
+
+.nav__div__one__button:active {
+  background-color: lightblue;
+  box-shadow: 0 2px #666;
+  transform: translateY(1px)
+}
+
+.favorite-button, .grocery-button {
+  margin-right: 15px;
+}
+
+.favorite-button:active, .grocery-button:active, .cook-button:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(1px)
 }
