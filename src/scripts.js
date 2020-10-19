@@ -1,3 +1,5 @@
+
+
 let currentUser;
 let modal;
 let currentRecipe;
@@ -24,7 +26,7 @@ const allModals = document.getElementsByClassName("body__main__section__article_
 const groceryButton = document.getElementsByClassName('grocery-button');
 const cookButton = document.getElementsByClassName("cook-button");
 // query selectors
-const navDivDropdown = document.querySelector('.nav__div__one__dropdown');
+
 const recipeSection = document.querySelector('.body__main__section');
 
 // render recipes
@@ -36,7 +38,7 @@ const ingredientHashmap = createIngredientHash();
 window.onload = displayHandler;
 
 // //When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
@@ -46,31 +48,9 @@ window.onclick = function(event) {
 
 
 function displayHandler() {
-  showRecipes();
+  showRecipes(recipeInstantiation);
   showUsers();
-  modalListener();
-  modalCloseListener();
-  favoriteListener();
-  groceryListener();
-  cookListener();
-  whatToCookListener();
-  viewFavsListener();
-  viewGroceriesListener();
-  // for (let i = 0; i < allModals.length; i++) {
-  //   allModals[i].addEventListener('click', openModals)
-  // }
-  // for (let i = 0; i < span.length; i++) {
-  //   span[i].addEventListener('click', () => {
-  //     modal.style.display = "none";
-  //   })
-  // }
-  // for (let i = 0; i < favoriteButton.length; i++) {
-  //   favoriteButton[i].addEventListener('click', addFavoriteRecipe);
-  // }
-  // for (let i = 0; i < groceryButton.length; i++) {
-  //   groceryButton[i].addEventListener('click', addGroceryList);
-  // }
-  recipeInstantiation;
+  showFilterOptions();
 }
 
 function viewGroceriesListener() {
@@ -107,13 +87,22 @@ function modalCloseListener() {
 
 function favoriteListener() {
   for (let i = 0; i < favoriteButton.length; i++) {
-    favoriteButton[i].addEventListener('click', addFavoriteRecipe);
+    favoriteButton[i].addEventListener('mousedown', addFavoriteRecipe);
+    favoriteButton[i].addEventListener('mouseup', toggleFavoriteImage)
   }
 }
 
 function groceryListener() {
   for (let i = 0; i < groceryButton.length; i++) {
     groceryButton[i].addEventListener('click', addGroceryList);
+  }
+}
+
+function toggleFavoriteImage(event) {
+  if (event.target.src.includes('assets/002-star.svg')) {
+    event.target.src = '../assets/001-favorite.svg'
+  } else {
+    event.target.src = '../assets/002-star.svg'
   }
 }
 
@@ -202,8 +191,6 @@ function addFavoriteRecipe() {
     if (item.id === recipeNumber) {
       currentUser.addToFavoriteRecipes(item);
     }
-
-    //add image change
   })
 }
 
@@ -251,21 +238,58 @@ function createRecipes() {
   })
   return recipeInstances;
 }
+
 function showUsers() {
   let userDropDownList = userInstantiation.reduce((usersHTML, user) => {
     usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`
     return usersHTML;
   }, '')
-  document.querySelector('option').insertAdjacentHTML("afterend", userDropDownList);
+  document.querySelector('#user-drop').insertAdjacentHTML("afterend", userDropDownList)
 }
 
 
+function showFilterOptions() {
+  let dropDownListOptions = identifyFilterOptions();
+  let showOptions = dropDownListOptions.reduce((tagHTML, tag) => {
+    tagHTML += `<option class="nav__div__one__dropdown__choice" value="${tag}">${tag}</option>`;
+    return tagHTML;
+  }, '');
+  document.querySelector('#type-drop').insertAdjacentHTML("afterend", showOptions)
+}
 
-function chooseUser(option){
- currentUser = userInstantiation.find(user => {
-   return option.value === user.name;
- })
- console.log(currentUser);
+function identifyFilterOptions() {
+  let filterOptions = recipeData.reduce((recipeTags, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (!recipeTags.includes(tag)) {
+        recipeTags.push(tag);
+      }
+    })
+    return recipeTags;
+  }, [])
+  return filterOptions;
+}
+
+function filterByType(type) {
+  let filteredRecipe = recipeInstantiation.reduce((filteredRecipes, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (tag === type.value) {
+        filteredRecipes.push(recipe)
+      }
+    })
+    return filteredRecipes
+  }, [])
+  if (type.value === 'all-recipes') {
+    showRecipes(recipeInstantiation);
+  } else {
+    showRecipes(filteredRecipe);
+  }
+
+}
+
+function chooseUser(option) {
+  currentUser = userInstantiation.find(user => {
+    return option.value === user.name;
+  })
 }
 
 function getAmounts() {
@@ -277,9 +301,12 @@ function getAmounts() {
   })
 }
 
-function showRecipes() {
+function showRecipes(recipes) {
+
+
   let recipeHTML = '';
-  recipeInstantiation.forEach(recipe => {
+  recipes.forEach(recipe => {
+    const recipeNames = recipe.getIngredients();
     const showInstructions = recipe.getInstructions();
     let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
       instructionDetail += `<li>${instruction}</li>`;
@@ -288,8 +315,8 @@ function showRecipes() {
     const amounts = recipe.getAmounts();
     const ingredientNames = recipe.getIngredients()
     const combineIngredientInfo = amounts.map((value, index) => {
-     return value + ingredientNames[index]
-     })
+      return value + ingredientNames[index]
+    })
     const ingredientsHTML = combineIngredientInfo.reduce((displayData, info) => {
       displayData += `<li>${info}</li>`;
       return displayData;
@@ -322,4 +349,9 @@ function showRecipes() {
     recipeHTML += recipeDisplay;
   })
   recipeSection.innerHTML = recipeHTML;
+  modalListener();
+  modalCloseListener();
+  favoriteListener();
+  groceryListener();
+  cookListener();
 }
