@@ -102,6 +102,8 @@ function addFavoriteRecipe() {
     if (item.id === recipeNumber) {
       currentUser.addToFavoriteRecipes(item);
     }
+
+    //add image change
   })
 }
 
@@ -151,19 +153,15 @@ function createRecipes() {
 }
 function showUsers() {
   let userDropDownList = userInstantiation.reduce((usersHTML, user) => {
-    usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.id}">${user.name}</option>`
+    usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`
     return usersHTML;
   }, '')
-  navDivDropdown.innerHTML = userDropDownList
-  userDropDownList = userInstantiation.reduce((usersHTML, user) =>
-    usersHTML +=
-    `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`
-  , '')
-  document.querySelector(".nav__div__one__dropdown").innerHTML = userDropDownList;
+  document.querySelector('option').insertAdjacentHTML("afterend", userDropDownList)
 }
 
 
-function changed(option){
+
+function chooseUser(option){
  currentUser = userInstantiation.find(user => {
    return option.value === user.name;
  })
@@ -216,7 +214,7 @@ function showRecipes() {
                               <div clas="body__main__section__article__modal__content__wrapper">
                                 <h2>${recipe.name}</h2>
                                 <div class="body__main__section__article__modal__content__wrapper__div">
-                                  <img src="${recipe.image}">
+                                  <img src="${recipe.image}" alt="${recipe.name}">
                                   <ul>
                                   ${ingredientsHTML}
                                   </ul>
