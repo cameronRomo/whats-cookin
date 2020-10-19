@@ -10,6 +10,12 @@ function openModals(event) {
   modal.style.display = 'block';
 }
 
+// Get buttons in nav__div__two
+const whatToCookButton = document.getElementById('cook-button');
+const viewFavsButton = document.getElementById('favorite-button');
+const viewGroceriesButton = document.getElementById('grocery-button');
+
+
 // Get the button that opens the modal
 const btn = document.getElementById("myBtn");
 
@@ -44,9 +50,47 @@ window.onclick = function (event) {
 function displayHandler() {
   showRecipes(recipeInstantiation);
   showUsers();
+<<<<<<< HEAD
 
 
   showFilterOptions();
+=======
+  modalListener();
+  modalCloseListener();
+  favoriteListener();
+  groceryListener();
+  cookListener();
+  whatToCookListener();
+  viewFavsListener();
+  viewGroceriesListener();
+  // for (let i = 0; i < allModals.length; i++) {
+  //   allModals[i].addEventListener('click', openModals)
+  // }
+  // for (let i = 0; i < span.length; i++) {
+  //   span[i].addEventListener('click', () => {
+  //     modal.style.display = "none";
+  //   })
+  // }
+  // for (let i = 0; i < favoriteButton.length; i++) {
+  //   favoriteButton[i].addEventListener('click', addFavoriteRecipe);
+  // }
+  // for (let i = 0; i < groceryButton.length; i++) {
+  //   groceryButton[i].addEventListener('click', addGroceryList);
+  // }
+  recipeInstantiation;
+>>>>>>> main
+}
+
+function viewGroceriesListener() {
+  viewGroceriesButton.addEventListener('click', viewGroceryList);
+}
+
+function viewFavsListener() {
+  viewFavsButton.addEventListener('click', viewFavs);
+}
+
+function whatToCookListener() {
+  whatToCookButton.addEventListener('click', whatToCook);
 }
 
 function modalListener() {
@@ -90,6 +134,85 @@ function toggleFavoriteImage(event) {
   }
 }
 
+// top button handlers
+
+function whatToCook() {
+  console.log('Wazzup??');
+}
+
+function viewFavs() {
+  let recipeHTML = '';
+  currentUser.favoriteRecipes.forEach(recipe => {
+    const showInstructions = recipe.getInstructions();
+    let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
+      instructionDetail += `<li>${instruction}</li>`;
+      return instructionDetail;
+    }, '')
+    const amounts = recipe.getAmounts();
+    const ingredientNames = recipe.getIngredients()
+    const combineIngredientInfo = amounts.map((value, index) => {
+     return value + ingredientNames[index]
+     })
+    const ingredientsHTML = combineIngredientInfo.reduce((displayData, info) => {
+      displayData += `<li>${info}</li>`;
+      return displayData;
+    }, '')
+    let recipeDisplay = `<article class="body__main__section__article">
+                          <img class="body__main__section__article__image" src="${recipe.image}">
+                          <div class="body__main__section__article__text">${recipe.name}</div>
+                          <button class="body__main__section__article__button" id="${recipe.id}">Open Recipe</button>
+                          <div class="body__main__section__article__modal" id="${recipe.id + 'modal'}">
+                            <div class="body__main__section__article__modal__content">
+                              <span class="close">&times;</span>
+                              <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25">
+                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25">
+                              <img class="cook-button" src="../assets/cooking.svg" height="25" width="25">
+                              <div clas="body__main__section__article__modal__content__wrapper">
+                                <h2>${recipe.name}</h2>
+                                <div class="body__main__section__article__modal__content__wrapper__div">
+                                  <img src="${recipe.image}" alt="${recipe.name}">
+                                  <ul>
+                                  ${ingredientsHTML}
+                                  </ul>
+                                </div>
+                                <ol>
+                                  ${instructionsHTML}
+                                </ol>
+                              </div>
+                            </div>
+                          </div>
+                        </article>`;
+    recipeHTML += recipeDisplay;
+  })
+  recipeSection.innerHTML = recipeHTML;
+}
+
+// function viewGroceryList() {
+//   let groceryListHTML = '';
+//   currentUser.thingsToBuy.forEach(ingredient => {
+//     let ingredientNumber = ingredient.ingredient;
+//     let ingredientName = ingredientHashmap[ingredientNumber].name;
+//     let amountToBuy = ingredient.amountNeeded;
+//     let groceryDisplay = `<article class="body__main__section__article__modal">
+//                             <div class="body__main__section__article__modal__content">
+//                               <span class="close">&times;</span>
+//                               <div clas="body__main__section__article__modal__content__wrapper">
+//                               <div class="body__main__section__article__modal__content__wrapper__div">
+//                                 <ul>
+//                                 ${ingredientName} + ${amountToBuy}
+//                                 </ul>
+//                               </div>
+//                               </div>
+//                             </div>
+//                           </article>`
+//     groceryListHTML += groceryDisplay;
+//   })
+//   recipeSection.innerHTML = groceryListHTML;
+// }
+
+
+/*-------------------------------*/
+
 function addFavoriteRecipe() {
   let recipeNumber = Number(currentRecipe);
   recipeInstantiation.forEach(item => {
@@ -113,7 +236,7 @@ function addGroceryList() {
   recipeInstantiation.forEach(recipe => {
     if (recipe.id === recipeNumber) {
       let itemsNeeded = currentUser.pantry.checkPantry(recipe)
-      currentUser.addIngredientToGroceryList(itemsNeeded);
+      currentUser.addIngredientToGroceryList(itemsNeeded[0]);
     }
   })
 }
@@ -217,14 +340,8 @@ function showRecipes(recipes) {
       instructionDetail += `<li>${instruction}</li>`;
       return instructionDetail;
     }, '')
-    const amounts = recipe.ingredients.map(item => {
-      item.quantity.amount = +item.quantity.amount.toFixed(2);
-      return item.quantity.amount + ' ' + item.quantity.unit + ' ';
-    })
-    const ingredientNames = recipeNames.reduce((ingredientDetail, ingredient) => {
-      ingredientDetail.push(ingredient)
-      return ingredientDetail;
-    }, [])
+    const amounts = recipe.getAmounts();
+    const ingredientNames = recipe.getIngredients()
     const combineIngredientInfo = amounts.map((value, index) => {
       return value + ingredientNames[index]
     })
