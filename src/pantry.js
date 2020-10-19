@@ -1,4 +1,3 @@
-
 class Pantry {
   constructor(pantry = []) {
     this.pantry = pantry;

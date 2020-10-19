@@ -57,7 +57,6 @@ class Recipe {
 
   getIngredients() {
     let recipeIngredients = this.ingredients.map(ingredient => {
-
       return ingredientHashmap[ingredient.id].name;
     })
     return recipeIngredients;
