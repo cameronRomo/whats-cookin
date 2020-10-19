@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +9,12 @@
   <nav class="nav">
     <div class="nav__div__one">
       <label class="nav__div__one__user" for="users">Choose a user:</label>
-      <select class="nav__div__one__dropdown" onchange="changed(this)" name="users">
+      <select class="nav__div__one__dropdown" onchange="chooseUser(this)" name="users">
+        <option disabled selected value> -- choose a user -- </option>
       </select>
       <input class="nav__div__one__input" type="text" placeholder="Search By Ingredient..">
+      <button class="nav__div__one__button" type="submit"></button>
+
     </div>
     <div class="nav__div__two">
       <button class="nav__div__two__button" id="cook-button">WHAT TO COOK</button>
@@ -19,20 +22,24 @@
       <button class="nav__div__two__button" id="grocery-button">YOUR GROCERY LIST</button>
     <div>
   </nav>
-  <div class="nav__content">
-    <div class="nav__content__slider-wrapper">
-      Time to cook
-      <div class="nav__content__slider">
-          <div class="nav__content__slider-text1">DINNER</div>
-          <div class="nav__content__slider-text2">LUNCH</div>
-          <div class="nav__content__slider-text3">BREAKFAST</div>
-      </div>
-    </div>
-  </div>
+
   <body class="body">
     <article class="body__article">
-      <div class="body__article__div">Lentil and Orzo Stew With Roasted Eggplant</div>
-      <img class="body__article__image" src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
+      <!-- display randomly on page load -->
+      <img class="body__article__image" src="../assets/jason-briscoe-GliaHAJ3_5A-unsplash.jpg">
+
+      <div class="nav__content">
+        <div class="nav__content__slider-wrapper">
+          Time to cook
+          <div class="nav__content__slider">
+              <div class="nav__content__slider-text1">DINNER</div>
+              <div class="nav__content__slider-text2">LUNCH</div>
+              <div class="nav__content__slider-text3">BREAKFAST</div>
+          </div>
+        </div>
+      </div>
+
+
     </article>
     <main class="body__main">
       <section class="body__main__section">
@@ -82,7 +89,7 @@
       </section>
     </main>
     <div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-    
+
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
     <script type="text/javascript" src="../data/ingredients.js"></script>
