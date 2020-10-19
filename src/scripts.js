@@ -1,3 +1,5 @@
+
+
 let currentUser;
 let modal;
 let currentRecipe;
@@ -18,7 +20,7 @@ const allModals = document.getElementsByClassName("body__main__section__article_
 const groceryButton = document.getElementsByClassName('grocery-button');
 const cookButton = document.getElementsByClassName("cook-button");
 // query selectors
-const navDivDropdown = document.querySelector('.nav__div__one__dropdown');
+
 const recipeSection = document.querySelector('.body__main__section');
 
 // render recipes
@@ -30,7 +32,7 @@ const ingredientHashmap = createIngredientHash();
 window.onload = displayHandler;
 
 // //When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
@@ -47,6 +49,7 @@ function displayHandler() {
   favoriteListener();
   groceryListener();
   cookListener();
+  showFilterOptions();
   // for (let i = 0; i < allModals.length; i++) {
   //   allModals[i].addEventListener('click', openModals)
   // }
@@ -86,7 +89,8 @@ function modalCloseListener() {
 
 function favoriteListener() {
   for (let i = 0; i < favoriteButton.length; i++) {
-    favoriteButton[i].addEventListener('click', addFavoriteRecipe);
+    favoriteButton[i].addEventListener('mousedown', addFavoriteRecipe);
+    favoriteButton[i].addEventListener('mouseup', toggleFavoriteImage)
   }
 }
 
@@ -96,14 +100,20 @@ function groceryListener() {
   }
 }
 
+function toggleFavoriteImage(event) {
+  if (event.target.src === 'file:///Users/mike/turing/2module/whats-cookin/assets/002-star.svg') {
+    event.target.src = 'file:///Users/mike/turing/2module/whats-cookin/assets/001-favorite.svg'
+  } else {
+    event.target.src = 'file:///Users/mike/turing/2module/whats-cookin/assets/002-star.svg'
+  }
+}
+
 function addFavoriteRecipe() {
   let recipeNumber = Number(currentRecipe);
   recipeInstantiation.forEach(item => {
     if (item.id === recipeNumber) {
       currentUser.addToFavoriteRecipes(item);
     }
-
-    //add image change
   })
 }
 
@@ -156,16 +166,35 @@ function showUsers() {
     usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`
     return usersHTML;
   }, '')
-  document.querySelector('option').insertAdjacentHTML("afterend", userDropDownList)
+  document.querySelector('#user-drop').insertAdjacentHTML("afterend", userDropDownList)
 }
 
+//showFilterOptions
+function showFilterOptions() {
+  let dropDownListOptions = identifyFilterOptions();
+  let showOptions = dropDownListOptions.reduce((tagHTML, tag) => {
+    tagHTML += `<option class="nav__div__one__dropdown__choice" value="${tag}">${tag}</option>`;
+    return tagHTML;
+  }, '');
+  document.querySelector('#type-drop').insertAdjacentHTML("afterend", showOptions)
+}
 
+function identifyFilterOptions() {
+  let filterOptions = recipeData.reduce((recipeTags, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (!recipeTags.includes(tag)) {
+        recipeTags.push(tag);
+      }
+    })
+    return recipeTags;
+  }, [])
+  return filterOptions;
+}
 
-function chooseUser(option){
- currentUser = userInstantiation.find(user => {
-   return option.value === user.name;
- })
- console.log(currentUser);
+function chooseUser(option) {
+  currentUser = userInstantiation.find(user => {
+    return option.value === user.name;
+  })
 }
 
 function getAmounts() {
@@ -195,8 +224,8 @@ function showRecipes() {
       return ingredientDetail;
     }, [])
     const combineIngredientInfo = amounts.map((value, index) => {
-     return value + ingredientNames[index]
-     })
+      return value + ingredientNames[index]
+    })
     const ingredientsHTML = combineIngredientInfo.reduce((displayData, info) => {
       displayData += `<li>${info}</li>`;
       return displayData;
