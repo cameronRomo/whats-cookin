@@ -1,11 +1,10 @@
-//is this the correct way to import method?
-
 class User {
   constructor(id, name, pantry) {
     this.id = id;
     this.name = name;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
+    this.thingsToBuy = [];
     this.pantry = new Pantry(pantry);
   }
 
@@ -20,6 +19,10 @@ class User {
   }
   addRecipeToCook(recipe) {
     this.recipesToCook.push(recipe);
+  }
+
+  addIngredientToGroceryList(ingredients) {
+    this.thingsToBuy.push(ingredients);
   }
 
   filterUserRecipe(recipeTag, recipesContainer) {
