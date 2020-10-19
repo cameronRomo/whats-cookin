@@ -69,6 +69,12 @@ class Recipe {
     return recipeIngredients;
   }
 
+  getIngredientNames() {
+    return this.getIngredients().reduce((ingredientDetail, ingredient) => {
+      ingredientDetail.push(ingredient)
+      return ingredientDetail;
+    }, [])
+  }
 
   getCost() {
     let recipeCost;
