@@ -42,29 +42,11 @@ window.onclick = function (event) {
 
 
 function displayHandler() {
-  showRecipes();
+  showRecipes(recipeInstantiation);
   showUsers();
-  modalListener();
-  modalCloseListener();
-  favoriteListener();
-  groceryListener();
-  cookListener();
+
+
   showFilterOptions();
-  // for (let i = 0; i < allModals.length; i++) {
-  //   allModals[i].addEventListener('click', openModals)
-  // }
-  // for (let i = 0; i < span.length; i++) {
-  //   span[i].addEventListener('click', () => {
-  //     modal.style.display = "none";
-  //   })
-  // }
-  // for (let i = 0; i < favoriteButton.length; i++) {
-  //   favoriteButton[i].addEventListener('click', addFavoriteRecipe);
-  // }
-  // for (let i = 0; i < groceryButton.length; i++) {
-  //   groceryButton[i].addEventListener('click', addGroceryList);
-  // }
-  recipeInstantiation;
 }
 
 function modalListener() {
@@ -101,10 +83,10 @@ function groceryListener() {
 }
 
 function toggleFavoriteImage(event) {
-  if (event.target.src === 'file:///Users/mike/turing/2module/whats-cookin/assets/002-star.svg') {
-    event.target.src = 'file:///Users/mike/turing/2module/whats-cookin/assets/001-favorite.svg'
+  if (event.target.src.includes('assets/002-star.svg')) {
+    event.target.src = '../assets/001-favorite.svg'
   } else {
-    event.target.src = 'file:///Users/mike/turing/2module/whats-cookin/assets/002-star.svg'
+    event.target.src = '../assets/002-star.svg'
   }
 }
 
@@ -161,6 +143,7 @@ function createRecipes() {
   })
   return recipeInstances;
 }
+
 function showUsers() {
   let userDropDownList = userInstantiation.reduce((usersHTML, user) => {
     usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`
@@ -169,7 +152,7 @@ function showUsers() {
   document.querySelector('#user-drop').insertAdjacentHTML("afterend", userDropDownList)
 }
 
-//showFilterOptions
+
 function showFilterOptions() {
   let dropDownListOptions = identifyFilterOptions();
   let showOptions = dropDownListOptions.reduce((tagHTML, tag) => {
@@ -191,6 +174,23 @@ function identifyFilterOptions() {
   return filterOptions;
 }
 
+function filterByType(type) {
+  let filteredRecipe = recipeInstantiation.reduce((filteredRecipes, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (tag === type.value) {
+        filteredRecipes.push(recipe)
+      }
+    })
+    return filteredRecipes
+  }, [])
+  if (type.value === 'all-recipes') {
+    showRecipes(recipeInstantiation);
+  } else {
+    showRecipes(filteredRecipe);
+  }
+
+}
+
 function chooseUser(option) {
   currentUser = userInstantiation.find(user => {
     return option.value === user.name;
@@ -206,9 +206,11 @@ function getAmounts() {
   })
 }
 
-function showRecipes() {
+function showRecipes(recipes) {
+
+
   let recipeHTML = '';
-  recipeInstantiation.forEach(recipe => {
+  recipes.forEach(recipe => {
     const recipeNames = recipe.getIngredients();
     const showInstructions = recipe.getInstructions();
     let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
@@ -258,4 +260,9 @@ function showRecipes() {
     recipeHTML += recipeDisplay;
   })
   recipeSection.innerHTML = recipeHTML;
+  modalListener();
+  modalCloseListener();
+  favoriteListener();
+  groceryListener();
+  cookListener();
 }
