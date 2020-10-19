@@ -115,9 +115,13 @@ function addToCook() {
 }
 
 function addGroceryList() {
-  console.log('what up');
-  //how to invoke user method?
- //addRecipeToCook(recipe)
+  let recipeNumber = Number(currentRecipe);
+  recipeInstantiation.forEach(recipe => {
+    if (recipe.id === recipeNumber) {
+      let itemsNeeded = currentUser.pantry.checkPantry(recipe)
+      currentUser.addIngredientToGroceryList(itemsNeeded);
+    }
+  })
 }
 
 
