@@ -50,35 +50,7 @@ window.onclick = function (event) {
 function displayHandler() {
   showRecipes(recipeInstantiation);
   showUsers();
-<<<<<<< HEAD
-
-
   showFilterOptions();
-=======
-  modalListener();
-  modalCloseListener();
-  favoriteListener();
-  groceryListener();
-  cookListener();
-  whatToCookListener();
-  viewFavsListener();
-  viewGroceriesListener();
-  // for (let i = 0; i < allModals.length; i++) {
-  //   allModals[i].addEventListener('click', openModals)
-  // }
-  // for (let i = 0; i < span.length; i++) {
-  //   span[i].addEventListener('click', () => {
-  //     modal.style.display = "none";
-  //   })
-  // }
-  // for (let i = 0; i < favoriteButton.length; i++) {
-  //   favoriteButton[i].addEventListener('click', addFavoriteRecipe);
-  // }
-  // for (let i = 0; i < groceryButton.length; i++) {
-  //   groceryButton[i].addEventListener('click', addGroceryList);
-  // }
-  recipeInstantiation;
->>>>>>> main
 }
 
 function viewGroceriesListener() {
