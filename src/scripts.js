@@ -1,51 +1,70 @@
-
-
-let currentUser;
-let modal;
-let currentRecipe;
-function openModals(event) {
-  let eventId = event.target.id;
-  currentRecipe = eventId;
-  modal = document.getElementById(eventId + 'modal');
-  modal.style.display = 'block';
-}
-
-// Get buttons in nav__div__two
 const whatToCookButton = document.getElementById('cook-button');
 const viewFavsButton = document.getElementById('favorite-button');
 const viewGroceriesButton = document.getElementById('grocery-button');
-
-
-// Get the button that opens the modal
-const btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close");
+const grocerySpan = document.getElementsByClassName('grocery-close');
+const groceryModal = document.getElementsByClassName('grocery-modal')[0];
 const favoriteButton = document.getElementsByClassName('favorite-button');
 const allModals = document.getElementsByClassName("body__main__section__article__button");
 const groceryButton = document.getElementsByClassName('grocery-button');
 const cookButton = document.getElementsByClassName("cook-button");
-// query selectors
-
 const recipeSection = document.querySelector('.body__main__section');
-
-// render recipes
 const recipeInstantiation = createRecipes();
 const userInstantiation = createUsers();
 const ingredientHashmap = createIngredientHash();
 
 
+let currentUser;
+let modal;
+let currentRecipe;
+
+viewFavsButton.addEventListener('click', viewFavs);
+//viewGroceriesButton.addEventListener('click', viewGroceryList);
+whatToCookButton.addEventListener('click', whatToCook);
+
+
+
+// window.onclick = function(event) {
+//   if (event.target == groceryModal) {
+//     groceryModal.style.display = "none";
+//   }
+// }
+
+// grocerySpan.onlick = function() {
+//   groceryModal.style.display = "none";
+// }
+
+
+
+// function viewGroceryList() {
+
+//   let groceryListHTML = '';
+//   currentUser.thingsToBuy.forEach(item => {
+
+//   //  let ingredientNumber = item.ingredient;
+//     //let ingredientName = ingredientHashmap[ingredientNumber].name;
+//    // let amountToBuy = item.amountNeeded;
+//     let groceryDisplay = ` <div class="grocery-modal-content">
+//                             <span class="grocery-close">&times;</span>
+//                                 <h2>${item}</h2>
+//                             </div>
+//                           </div>
+//                           `
+
+//     groceryListHTML += groceryDisplay;
+//   })
+//   recipeSection.innerHTML = groceryListHTML;
+//   groceryModal.style.display = "block"
+// }
+
+
 window.onload = displayHandler;
 
-// //When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
+window.onclick = event => {
+  if (event.target === modal) {
     modal.style.display = "none";
   }
 }
-
-
-
 
 function displayHandler() {
   showRecipes(recipeInstantiation);
@@ -53,16 +72,11 @@ function displayHandler() {
   showFilterOptions();
 }
 
-function viewGroceriesListener() {
-  viewGroceriesButton.addEventListener('click', viewGroceryList);
-}
-
-function viewFavsListener() {
-  viewFavsButton.addEventListener('click', viewFavs);
-}
-
-function whatToCookListener() {
-  whatToCookButton.addEventListener('click', whatToCook);
+function openModals(event) {
+  let eventId = event.target.id;
+  currentRecipe = eventId;
+  modal = document.getElementById(eventId + 'modal');
+  modal.style.display = 'block';
 }
 
 function modalListener() {
@@ -106,84 +120,13 @@ function toggleFavoriteImage(event) {
   }
 }
 
-// top button handlers
-
 function whatToCook() {
-  console.log('Wazzup??');
+  showRecipes(currentUser.recipesToCook);
 }
 
 function viewFavs() {
-  let recipeHTML = '';
-  currentUser.favoriteRecipes.forEach(recipe => {
-    const showInstructions = recipe.getInstructions();
-    let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
-      instructionDetail += `<li>${instruction}</li>`;
-      return instructionDetail;
-    }, '')
-    const amounts = recipe.getAmounts();
-    const ingredientNames = recipe.getIngredients()
-    const combineIngredientInfo = amounts.map((value, index) => {
-     return value + ingredientNames[index]
-     })
-    const ingredientsHTML = combineIngredientInfo.reduce((displayData, info) => {
-      displayData += `<li>${info}</li>`;
-      return displayData;
-    }, '')
-    let recipeDisplay = `<article class="body__main__section__article">
-                          <img class="body__main__section__article__image" src="${recipe.image}">
-                          <div class="body__main__section__article__text">${recipe.name}</div>
-                          <button class="body__main__section__article__button" id="${recipe.id}">Open Recipe</button>
-                          <div class="body__main__section__article__modal" id="${recipe.id + 'modal'}">
-                            <div class="body__main__section__article__modal__content">
-                              <span class="close">&times;</span>
-                              <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25">
-                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25">
-                              <img class="cook-button" src="../assets/cooking.svg" height="25" width="25">
-                              <div clas="body__main__section__article__modal__content__wrapper">
-                                <h2>${recipe.name}</h2>
-                                <div class="body__main__section__article__modal__content__wrapper__div">
-                                  <img src="${recipe.image}" alt="${recipe.name}">
-                                  <ul>
-                                  ${ingredientsHTML}
-                                  </ul>
-                                </div>
-                                <ol>
-                                  ${instructionsHTML}
-                                </ol>
-                              </div>
-                            </div>
-                          </div>
-                        </article>`;
-    recipeHTML += recipeDisplay;
-  })
-  recipeSection.innerHTML = recipeHTML;
+  showRecipes(currentUser.favoriteRecipes)
 }
-
-// function viewGroceryList() {
-//   let groceryListHTML = '';
-//   currentUser.thingsToBuy.forEach(ingredient => {
-//     let ingredientNumber = ingredient.ingredient;
-//     let ingredientName = ingredientHashmap[ingredientNumber].name;
-//     let amountToBuy = ingredient.amountNeeded;
-//     let groceryDisplay = `<article class="body__main__section__article__modal">
-//                             <div class="body__main__section__article__modal__content">
-//                               <span class="close">&times;</span>
-//                               <div clas="body__main__section__article__modal__content__wrapper">
-//                               <div class="body__main__section__article__modal__content__wrapper__div">
-//                                 <ul>
-//                                 ${ingredientName} + ${amountToBuy}
-//                                 </ul>
-//                               </div>
-//                               </div>
-//                             </div>
-//                           </article>`
-//     groceryListHTML += groceryDisplay;
-//   })
-//   recipeSection.innerHTML = groceryListHTML;
-// }
-
-
-/*-------------------------------*/
 
 function addFavoriteRecipe() {
   let recipeNumber = Number(currentRecipe);
@@ -247,7 +190,6 @@ function showUsers() {
   document.querySelector('#user-drop').insertAdjacentHTML("afterend", userDropDownList)
 }
 
-
 function showFilterOptions() {
   let dropDownListOptions = identifyFilterOptions();
   let showOptions = dropDownListOptions.reduce((tagHTML, tag) => {
@@ -276,14 +218,13 @@ function filterByType(type) {
         filteredRecipes.push(recipe)
       }
     })
-    return filteredRecipes
+    return filteredRecipes;
   }, [])
   if (type.value === 'all-recipes') {
     showRecipes(recipeInstantiation);
   } else {
     showRecipes(filteredRecipe);
   }
-
 }
 
 function chooseUser(option) {
@@ -292,18 +233,7 @@ function chooseUser(option) {
   })
 }
 
-function getAmounts() {
-  recipeInstantiation.forEach(recipe => {
-    recipe.ingredients.map(item => {
-      item.quantity.amount = +item.quantity.amount.toFixed(2);
-      return item.quantity.amount + ' ' + item.quantity.unit + ' ';
-    })
-  })
-}
-
 function showRecipes(recipes) {
-
-
   let recipeHTML = '';
   recipes.forEach(recipe => {
     const recipeNames = recipe.getIngredients();
@@ -328,9 +258,9 @@ function showRecipes(recipes) {
                           <div class="body__main__section__article__modal" id="${recipe.id + 'modal'}">
                             <div class="body__main__section__article__modal__content">
                               <span class="close">&times;</span>
-                              <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25">
-                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25">
-                              <img class="cook-button" src="../assets/cooking.svg" height="25" width="25">
+                              <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25" title="Add Recipe To Favorites">
+                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25" title="Add Missing Ingredients To Grocery List">
+                              <img class="cook-button" src="../assets/cooking.svg" height="25" width="25" title="Add Recipe To Your Cook List">
                               <div clas="body__main__section__article__modal__content__wrapper">
                                 <h2>${recipe.name}</h2>
                                 <div class="body__main__section__article__modal__content__wrapper__div">
