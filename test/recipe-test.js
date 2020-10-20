@@ -132,6 +132,13 @@ describe('Recipe', function() {
       }]);
     })
 
+    it('should serch recipe by ingredient', function() {
+      let recipeContainerData = [recipe1];
+      let ingredientName = "wheat flour";
+      let findRecipe = recipe1.searchRecipeByIngredient(ingredientName, recipeContainerData)
+      expect(findRecipe).to.deep.equal([recipe1]);
+    })
+
 
     // it('should get ingredients', function() {
     //   ingredientHashmap = {20081: {id: 20081, name: "wheat flour", estimatedCostInCents: 142},
