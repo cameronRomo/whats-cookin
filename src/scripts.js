@@ -26,21 +26,13 @@ viewGroceriesButton.addEventListener('click', viewGroceryList);
 whatToCookButton.addEventListener('click', whatToCook);
 grocerySpan.addEventListener('click', closeGroceryModal);
 searchButton.addEventListener('click', displaySearchResults);
-
-function shuffle(array) {
-  var currentIndex = array.length, temporayValue, randomIndex;
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporayValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporayValue;
+input.addEventListener("keyup", (event) => {
+  if (event.key === 'Enter') {
+    searchButton.click();
   }
-  return array;
-}
+});
 
 window.onload = displayHandler;
-
 window.onclick = event => {
   if (event.target === modal) {
     modal.style.display = "none";
@@ -106,9 +98,23 @@ function toggleFavoriteImage(event) {
   }
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporayValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporayValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporayValue;
+  }
+  return array;
+}
+
 function whatToCook() {
   if (!currentUser) {
     alert ('Pick a user then add a recipe to cook first!');
+  } else if (!currentUser.recipesToCook.length) {
+    alert ('Add a recipe to cook first!');
   } else {
     showRecipes(currentUser.recipesToCook);
   }
@@ -117,6 +123,8 @@ function whatToCook() {
 function viewFavs() {
   if (!currentUser) {
     alert ('Pick a user then favorite a recipe first!');
+  } else if (!currentUser.favoriteRecipes.length) {
+    alert ('Favorite a recipe first!');
   } else {
     showRecipes(currentUser.favoriteRecipes)
   }
@@ -144,6 +152,8 @@ function viewGroceryList() {
 }
 
 function addFavoriteRecipe() {
+
+
   let recipeNumber = Number(currentRecipe);
   recipeInstantiation.forEach(item => {
     if (item.id === recipeNumber) {
