@@ -11,7 +11,7 @@ const cookButton = document.getElementsByClassName("cook-button");
 const recipeSection = document.querySelector('.body__main__section');
 const input = document.querySelector('input');
 const searchButton = document.querySelector('.nav__div__one__button');
-const filterDropDown = document.querySelector('#type-drop');
+const filterDropDown = document.querySelector('#filter-ingredients');
 const searchText = document.querySelector('.nav__div__one__input');
 const filterText = document.querySelector('#filter-text');
 const recipeInstantiation = createRecipes();
@@ -28,14 +28,14 @@ viewGroceriesButton.addEventListener('click', viewGroceryList);
 whatToCookButton.addEventListener('click', whatToCook);
 grocerySpan.addEventListener('click', closeGroceryModal);
 searchButton.addEventListener('click', displaySearchResults);
-input.addEventListener("keyup", (event) => {
+input.addEventListener("keyup", function(event) {
   if (event.key === 'Enter') {
     searchButton.click();
   }
 });
 
 window.onload = displayHandler;
-window.onclick = event => {
+window.onclick = function(event) {
   if (event.target === modal) {
     modal.style.display = "none";
   }
@@ -120,14 +120,22 @@ function whatToCook() {
   } else {
     document.querySelector('#filter-text').innerText = "Filter your recipes";
     showRecipes(currentUser.recipesToCook);
-    searchButton.removeEventListener('click', displaySearchResults)
-    searchButton.addEventListener('click', displayCookSearchResults);
+    searchButtonCookListenHandler();
+    searchButtonCookFilterHandler();
   }
 }
 
 function displayCookSearchResults() {
   let userResults = recipeInstantiation[0].searchRecipeByIngredient(input.value, currentUser.recipesToCook);
   showRecipes(userResults);
+}
+function searchButtonCookFilterHandler() {
+  filterDropDown.setAttribute("onchange", "filterByType(this, currentUser.recipesToCook)");
+}
+
+function searchButtonCookListenHandler() {
+  searchButton.removeEventListener('click', displaySearchResults)
+  searchButton.addEventListener('click', displayCookSearchResults);
 }
 
 function viewFavs() {
@@ -139,14 +147,23 @@ function viewFavs() {
     searchText.placeholder = "-- Search your recipes --";
     filterText.innerText = "Filter your recipes";
     showRecipes(currentUser.favoriteRecipes);
-    searchButton.removeEventListener('click', displaySearchResults)
-    searchButton.addEventListener('click', displayUserSearchResults);
+    searchButtonFavListenHandler();
+    searchButtonFavFilterHandler();
   }
+}
+
+function searchButtonFavFilterHandler() {
+  filterDropDown.setAttribute("onchange", "filterByType(this, currentUser.favoriteRecipes)");
+}
+
+function searchButtonFavListenHandler() {
+  searchButton.removeEventListener('click', displaySearchResults)
+  searchButton.addEventListener('click', displayFavSearchResults);
 }
 
 function displayFavSearchResults() {
   let userResults = recipeInstantiation[0].searchRecipeByIngredient(input.value, currentUser.favoriteRecipes);
-  showRecipes(userResults)
+  showRecipes(userResults);
 }
 
 function viewGroceryList() {
@@ -158,15 +175,14 @@ function viewGroceryList() {
     } else {
       let groceryListHTML = '';
       currentUser.thingsToBuy.forEach(item => {
-        console.log(item);
         let ingredientNumber = item.ingredient;
         let ingredientName = ingredientHashmap[ingredientNumber].name;
         let amountToBuy = item.amountNeeded;
         let groceryDisplay = amountToBuy + ' ' + ingredientName
         groceryListHTML += groceryDisplay;
       })
-      document.querySelector('h2').innerHTML = groceryListHTML;
-      groceryModal.style.display = "block"
+      grocerySpan.insertAdjacentHTML('afterend', groceryListHTML)
+      groceryModal.style.display = "block";
     }
   }
 }
@@ -253,8 +269,8 @@ function identifyFilterOptions() {
   return filterOptions;
 }
 
-function filterByType(type) {
-  let filteredRecipe = recipeInstantiation.reduce((filteredRecipes, recipe) => {
+function filterByType(type, recipesContainer) {
+  let filteredRecipe = recipesContainer.reduce((filteredRecipes, recipe) => {
     recipe.tags.forEach(tag => {
       if (tag === type.value) {
         filteredRecipes.push(recipe)
@@ -278,16 +294,15 @@ function chooseUser(option) {
 function showRecipes(recipes) {
   let recipeHTML = '';
   recipes.forEach(recipe => {
-    const recipeNames = recipe.getIngredients();
     const showInstructions = recipe.getInstructions();
     let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
       instructionDetail += `<li>${instruction}</li>`;
       return instructionDetail;
     }, '')
     const amounts = recipe.getAmounts();
-    const ingredientNames = recipe.getIngredients()
+    const ingredientNames = recipe.getIngredients();
     const combineIngredientInfo = amounts.map((value, index) => {
-      return value + ingredientNames[index]
+      return value + ingredientNames[index];
     })
     const ingredientsHTML = combineIngredientInfo.reduce((displayData, info) => {
       displayData += `<li>${info}</li>`;
