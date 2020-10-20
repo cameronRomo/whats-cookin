@@ -1,3 +1,5 @@
+const ingredientsData = require('../data/ingredients')
+
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
     this.id = id;
@@ -84,7 +86,7 @@ class Recipe {
     let recipeIngredient;
     let recipeMath = this.ingredients.reduce((totalCost, ingredient) => {
       recipeCost = ingredient.quantity.amount;
-      recipeIngredient = ingredientsInfo.find(cost => {
+      recipeIngredient = ingredientsData.find(cost => {
         return cost.id === ingredient.id;
       })
       totalCost += recipeCost * recipeIngredient.estimatedCostInCents;
