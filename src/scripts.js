@@ -1,56 +1,41 @@
-
-
-let currentUser;
-let modal;
-let currentRecipe;
-function openModals(event) {
-  let eventId = event.target.id;
-  currentRecipe = eventId;
-  modal = document.getElementById(eventId + 'modal');
-  modal.style.display = 'block';
-}
-
-// Get buttons in nav__div__two
 const whatToCookButton = document.getElementById('cook-button');
 const viewFavsButton = document.getElementById('favorite-button');
 const viewGroceriesButton = document.getElementById('grocery-button');
-
-
-// Get the button that opens the modal
 const btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close");
 const favoriteButton = document.getElementsByClassName('favorite-button');
 const allModals = document.getElementsByClassName("body__main__section__article__button");
 const groceryButton = document.getElementsByClassName('grocery-button');
 const cookButton = document.getElementsByClassName("cook-button");
-// query selectors
-
 const recipeSection = document.querySelector('.body__main__section');
-
-// render recipes
 const recipeInstantiation = createRecipes();
 const userInstantiation = createUsers();
 const ingredientHashmap = createIngredientHash();
 
 
+let currentUser;
+let modal;
+let currentRecipe;
+
 window.onload = displayHandler;
 
-// //When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
 }
 
-
-
-
 function displayHandler() {
   showRecipes(recipeInstantiation);
   showUsers();
   showFilterOptions();
+}
+
+function openModals(event) {
+  let eventId = event.target.id;
+  currentRecipe = eventId;
+  modal = document.getElementById(eventId + 'modal');
+  modal.style.display = 'block';
 }
 
 function viewGroceriesListener() {
@@ -106,11 +91,9 @@ function toggleFavoriteImage(event) {
   }
 }
 
-// top button handlers
-
-function whatToCook() {
-  console.log('Wazzup??');
-}
+// function whatToCook() {
+//   console.log('Wazzup??');
+// }
 
 function viewFavs() {
   let recipeHTML = '';
@@ -247,7 +230,6 @@ function showUsers() {
   document.querySelector('#user-drop').insertAdjacentHTML("afterend", userDropDownList)
 }
 
-
 function showFilterOptions() {
   let dropDownListOptions = identifyFilterOptions();
   let showOptions = dropDownListOptions.reduce((tagHTML, tag) => {
@@ -276,14 +258,13 @@ function filterByType(type) {
         filteredRecipes.push(recipe)
       }
     })
-    return filteredRecipes
+    return filteredRecipes;
   }, [])
   if (type.value === 'all-recipes') {
     showRecipes(recipeInstantiation);
   } else {
     showRecipes(filteredRecipe);
   }
-
 }
 
 function chooseUser(option) {
@@ -292,18 +273,7 @@ function chooseUser(option) {
   })
 }
 
-function getAmounts() {
-  recipeInstantiation.forEach(recipe => {
-    recipe.ingredients.map(item => {
-      item.quantity.amount = +item.quantity.amount.toFixed(2);
-      return item.quantity.amount + ' ' + item.quantity.unit + ' ';
-    })
-  })
-}
-
 function showRecipes(recipes) {
-
-
   let recipeHTML = '';
   recipes.forEach(recipe => {
     const recipeNames = recipe.getIngredients();
