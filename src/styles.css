@@ -57,7 +57,7 @@ body {
 }
 
 #grocery-button {
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .body__article {
@@ -187,32 +187,30 @@ body {
   font-weight: bolder;
 }
 
-.body__main__section__article__modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+.body__main__section__article__modal, .grocery-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content/Box */
-.body__main__section__article__modal__content {
+.body__main__section__article__modal__content, .grocery-modal-content {
   background-color: #dbdbd4;
   color: #4B6319;
   font-size: 18px;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
 }
 
-/* The Close Button */
-.close {
+.close, .grocery-close {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -220,7 +218,9 @@ body {
 }
 
 .close:hover,
-.close:focus {
+.close:focus,
+.grocery-close:hover,
+.grocery-close:focus  {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -247,8 +247,8 @@ body {
   transform: translateY(1px)
 }
 
-.favorite-button, .grocery-button {
-  margin-right: 15px;
+.cook-button, .grocery-button {
+  margin-left: 15px;
 }
 
 .favorite-button:active, .grocery-button:active, .cook-button:active {
@@ -258,38 +258,4 @@ body {
 
 #filter-ingredients {
   margin: 0 5px 0 10px;
-}
-
-.grocery-modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-.grocery-modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-.grocery-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.grocery-close:hover,
-.grocery-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
