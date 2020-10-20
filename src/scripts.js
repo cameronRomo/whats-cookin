@@ -17,6 +17,10 @@ let currentUser;
 let modal;
 let currentRecipe;
 
+viewFavsButton.addEventListener('click', viewFavs);
+//viewGroceriesButton.addEventListener('click', viewGroceryList);
+whatToCookButton.addEventListener('click', whatToCook);
+
 window.onload = displayHandler;
 
 window.onclick = function (event) {
@@ -36,18 +40,6 @@ function openModals(event) {
   currentRecipe = eventId;
   modal = document.getElementById(eventId + 'modal');
   modal.style.display = 'block';
-}
-
-function viewGroceriesListener() {
-  viewGroceriesButton.addEventListener('click', viewGroceryList);
-}
-
-function viewFavsListener() {
-  viewFavsButton.addEventListener('click', viewFavs);
-}
-
-function whatToCookListener() {
-  whatToCookButton.addEventListener('click', whatToCook);
 }
 
 function modalListener() {
@@ -91,82 +83,13 @@ function toggleFavoriteImage(event) {
   }
 }
 
-// function whatToCook() {
-//   console.log('Wazzup??');
-// }
-
-function viewFavs() {
-  let recipeHTML = '';
-  currentUser.favoriteRecipes.forEach(recipe => {
-    const showInstructions = recipe.getInstructions();
-    let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
-      instructionDetail += `<li>${instruction}</li>`;
-      return instructionDetail;
-    }, '')
-    const amounts = recipe.getAmounts();
-    const ingredientNames = recipe.getIngredients()
-    const combineIngredientInfo = amounts.map((value, index) => {
-     return value + ingredientNames[index]
-     })
-    const ingredientsHTML = combineIngredientInfo.reduce((displayData, info) => {
-      displayData += `<li>${info}</li>`;
-      return displayData;
-    }, '')
-    let recipeDisplay = `<article class="body__main__section__article">
-                          <img class="body__main__section__article__image" src="${recipe.image}">
-                          <div class="body__main__section__article__text">${recipe.name}</div>
-                          <button class="body__main__section__article__button" id="${recipe.id}">Open Recipe</button>
-                          <div class="body__main__section__article__modal" id="${recipe.id + 'modal'}">
-                            <div class="body__main__section__article__modal__content">
-                              <span class="close">&times;</span>
-                              <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25">
-                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25">
-                              <img class="cook-button" src="../assets/cooking.svg" height="25" width="25">
-                              <div clas="body__main__section__article__modal__content__wrapper">
-                                <h2>${recipe.name}</h2>
-                                <div class="body__main__section__article__modal__content__wrapper__div">
-                                  <img src="${recipe.image}" alt="${recipe.name}">
-                                  <ul>
-                                  ${ingredientsHTML}
-                                  </ul>
-                                </div>
-                                <ol>
-                                  ${instructionsHTML}
-                                </ol>
-                              </div>
-                            </div>
-                          </div>
-                        </article>`;
-    recipeHTML += recipeDisplay;
-  })
-  recipeSection.innerHTML = recipeHTML;
+function whatToCook() {
+  showRecipes(currentUser.recipesToCook);
 }
 
-// function viewGroceryList() {
-//   let groceryListHTML = '';
-//   currentUser.thingsToBuy.forEach(ingredient => {
-//     let ingredientNumber = ingredient.ingredient;
-//     let ingredientName = ingredientHashmap[ingredientNumber].name;
-//     let amountToBuy = ingredient.amountNeeded;
-//     let groceryDisplay = `<article class="body__main__section__article__modal">
-//                             <div class="body__main__section__article__modal__content">
-//                               <span class="close">&times;</span>
-//                               <div clas="body__main__section__article__modal__content__wrapper">
-//                               <div class="body__main__section__article__modal__content__wrapper__div">
-//                                 <ul>
-//                                 ${ingredientName} + ${amountToBuy}
-//                                 </ul>
-//                               </div>
-//                               </div>
-//                             </div>
-//                           </article>`
-//     groceryListHTML += groceryDisplay;
-//   })
-//   recipeSection.innerHTML = groceryListHTML;
-// }
-
-
-/*-------------------------------*/
+function viewFavs() {
+  showRecipes(currentUser.favoriteRecipes)
+}
 
 function addFavoriteRecipe() {
   let recipeNumber = Number(currentRecipe);
