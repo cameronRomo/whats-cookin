@@ -58,23 +58,6 @@ function closeGroceryModal() {
   groceryModal.style.display = "none";
 }
 
-function viewGroceryList() {
-  if (currentUser.thingsToBuy[0] === undefined) {
-    alert ('Your have enough ingredients! No need to go to the store!');
-  } else {
-    let groceryListHTML = '';
-    currentUser.thingsToBuy.forEach(item => {
-      let ingredientNumber = item.ingredient;
-      let ingredientName = ingredientHashmap[ingredientNumber].name;
-      let amountToBuy = item.amountNeeded;
-      let groceryDisplay = amountToBuy + ' ' + ingredientName
-      groceryListHTML += groceryDisplay;
-    })
-    document.querySelector('h2').innerHTML = groceryListHTML;
-    groceryModal.style.display = "block"
-  }
-}
-
 function openModals(event) {
   let eventId = event.target.id;
   currentRecipe = eventId;
@@ -124,11 +107,40 @@ function toggleFavoriteImage(event) {
 }
 
 function whatToCook() {
-  showRecipes(currentUser.recipesToCook);
+  if (!currentUser) {
+    alert ('Pick a user then add a recipe to cook first!');
+  } else {
+    showRecipes(currentUser.recipesToCook);
+  }
 }
 
 function viewFavs() {
-  showRecipes(currentUser.favoriteRecipes)
+  if (!currentUser) {
+    alert ('Pick a user then favorite a recipe first!');
+  } else {
+    showRecipes(currentUser.favoriteRecipes)
+  }
+}
+
+function viewGroceryList() {
+  if (!currentUser) {
+    alert ('Pick a user then create a grocery list for your recipe!');
+  } else {
+    if (currentUser.thingsToBuy[0] === undefined) {
+      alert ('Your have enough ingredients! No need to go to the store!');
+    } else {
+      let groceryListHTML = '';
+      currentUser.thingsToBuy.forEach(item => {
+        let ingredientNumber = item.ingredient;
+        let ingredientName = ingredientHashmap[ingredientNumber].name;
+        let amountToBuy = item.amountNeeded;
+        let groceryDisplay = amountToBuy + ' ' + ingredientName
+        groceryListHTML += groceryDisplay;
+      })
+      document.querySelector('h2').innerHTML = groceryListHTML;
+      groceryModal.style.display = "block"
+    }
+  }
 }
 
 function addFavoriteRecipe() {
