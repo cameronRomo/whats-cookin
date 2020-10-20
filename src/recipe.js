@@ -1,5 +1,3 @@
-const ingredientsData = require('../data/ingredients')
-
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
     this.id = id;
@@ -9,7 +7,6 @@ class Recipe {
     this.name = name;
     this.tags = tags;
   }
-  //create test to test for 2nd parameter of passing array data
 
   getAmounts() {
     return this.ingredients.map(item => {
@@ -99,9 +96,3 @@ class Recipe {
 if (typeof module !== 'undefined') {
   module.exports = Recipe;
 }
-
-//module.exports = {
-//   1: Recipe,
-//   2: searchRecipeByIngredient(),
-//   3: filterRecipe();
-// }
