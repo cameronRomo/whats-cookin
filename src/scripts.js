@@ -24,34 +24,26 @@ whatToCookButton.addEventListener('click', whatToCook);
 grocerySpan.addEventListener('click', closeGroceryModal);
 
 
-// window.onclick = function(event) {
-//   if (event.target == groceryModal) {
-//     groceryModal.style.display = "none";
-//   }
-// }
-
-// grocerySpan.onlick = function() {
-//   groceryModal.style.display = "none";
-// }
-
 function closeGroceryModal() {
-   groceryModal.style.display = "none";
+  groceryModal.style.display = "none";
 }
 
 function viewGroceryList() {
-
+  if (currentUser.thingsToBuy[0] === undefined) {
+    alert ('Your have enough ingredients! No need to go to the store!');
+  } else {
   let groceryListHTML = '';
   currentUser.thingsToBuy.forEach(item => {
-
     let ingredientNumber = item.ingredient;
     let ingredientName = ingredientHashmap[ingredientNumber].name;
     let amountToBuy = item.amountNeeded;
-    let groceryDisplay = ingredientName + ' ' + amountToBuy
+    let groceryDisplay = amountToBuy + ' ' + ingredientName
 
     groceryListHTML += groceryDisplay;
   })
-  document.querySelector('h2').innerText = groceryListHTML;
+  document.querySelector('h2').innerHTML = groceryListHTML;
   groceryModal.style.display = "block"
+}
 }
 
 
