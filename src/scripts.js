@@ -11,11 +11,13 @@ const cookButton = document.getElementsByClassName("cook-button");
 const recipeSection = document.querySelector('.body__main__section');
 const input = document.querySelector('input');
 const searchButton = document.querySelector('.nav__div__one__button');
+const filterDropDown = document.querySelector('#type-drop');
+const searchText = document.querySelector('.nav__div__one__input');
+const filterText = document.querySelector('#filter-text');
 const recipeInstantiation = createRecipes();
 const userInstantiation = createUsers();
 const ingredientHashmap = createIngredientHash();
 const shuffleRecipes = shuffle(recipeInstantiation);
-
 
 let currentUser;
 let modal;
@@ -116,8 +118,16 @@ function whatToCook() {
   } else if (!currentUser.recipesToCook.length) {
     alert ('Add a recipe to cook first!');
   } else {
+    document.querySelector('#filter-text').innerText = "Filter your recipes";
     showRecipes(currentUser.recipesToCook);
+    searchButton.removeEventListener('click', displaySearchResults)
+    searchButton.addEventListener('click', displayCookSearchResults);
   }
+}
+
+function displayCookSearchResults() {
+  let userResults = recipeInstantiation[0].searchRecipeByIngredient(input.value, currentUser.recipesToCook);
+  showRecipes(userResults);
 }
 
 function viewFavs() {
@@ -126,8 +136,17 @@ function viewFavs() {
   } else if (!currentUser.favoriteRecipes.length) {
     alert ('Favorite a recipe first!');
   } else {
-    showRecipes(currentUser.favoriteRecipes)
+    searchText.placeholder = "-- Search your recipes --";
+    filterText.innerText = "Filter your recipes";
+    showRecipes(currentUser.favoriteRecipes);
+    searchButton.removeEventListener('click', displaySearchResults)
+    searchButton.addEventListener('click', displayUserSearchResults);
   }
+}
+
+function displayFavSearchResults() {
+  let userResults = recipeInstantiation[0].searchRecipeByIngredient(input.value, currentUser.favoriteRecipes);
+  showRecipes(userResults)
 }
 
 function viewGroceryList() {
@@ -135,10 +154,11 @@ function viewGroceryList() {
     alert ('Pick a user then create a grocery list for your recipe!');
   } else {
     if (currentUser.thingsToBuy[0] === undefined) {
-      alert ('Your have enough ingredients! No need to go to the store!');
+      alert ('You have enough ingredients! No need to go to the store!');
     } else {
       let groceryListHTML = '';
       currentUser.thingsToBuy.forEach(item => {
+        console.log(item);
         let ingredientNumber = item.ingredient;
         let ingredientName = ingredientHashmap[ingredientNumber].name;
         let amountToBuy = item.amountNeeded;
@@ -152,8 +172,6 @@ function viewGroceryList() {
 }
 
 function addFavoriteRecipe() {
-
-
   let recipeNumber = Number(currentRecipe);
   recipeInstantiation.forEach(item => {
     if (item.id === recipeNumber) {
@@ -180,7 +198,6 @@ function addGroceryList() {
     }
   })
 }
-
 
 function createUsers() {
   const userInstances = [];
@@ -284,8 +301,8 @@ function showRecipes(recipes) {
                             <div class="body__main__section__article__modal__content">
                               <span class="close">&times;</span>
                               <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25" title="Add Recipe To Favorites">
-                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25" title="Add Missing Ingredients To Grocery List">
                               <img class="cook-button" src="../assets/cooking.svg" height="25" width="25" title="Add Recipe To Your Cook List">
+                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25" title="Add Missing Ingredients To Grocery List">
                               <div clas="body__main__section__article__modal__content__wrapper">
                                 <h2>${recipe.name}</h2>
                                 <div class="body__main__section__article__modal__content__wrapper__div">
