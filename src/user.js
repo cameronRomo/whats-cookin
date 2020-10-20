@@ -25,14 +25,14 @@ class User {
     this.thingsToBuy.push(ingredients);
   }
 
-  filterUserRecipe(recipeTag, recipesContainer) {
-    //invoke from Recipe class
-    filterRecipe(recipeTag, recipesContainer);
-  }
+//   filterUserRecipe(recipeTag, recipesContainer) {
+//     //invoke from Recipe class
+//     filterRecipe(recipeTag, recipesContainer);
+//   }
 
-  searchUserRecipe(ingredient) {
-    searchRecipeByIngredient(ingredient, this.favoriteRecipes);
-  }
+//   searchUserRecipe(ingredient) {
+//     searchRecipeByIngredient(ingredient, this.favoriteRecipes);
+//   }
 }
 
 if (typeof module !== 'undefined') {

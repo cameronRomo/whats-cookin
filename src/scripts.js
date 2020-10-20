@@ -9,10 +9,15 @@ const allModals = document.getElementsByClassName("body__main__section__article_
 const groceryButton = document.getElementsByClassName('grocery-button');
 const cookButton = document.getElementsByClassName("cook-button");
 const recipeSection = document.querySelector('.body__main__section');
+const input = document.querySelector('input');
+const searchButton = document.querySelector('.nav__div__one__button');
+const filterDropDown = document.querySelector('#filter-ingredients');
+const searchText = document.querySelector('.nav__div__one__input');
+const filterText = document.querySelector('#filter-text');
 const recipeInstantiation = createRecipes();
 const userInstantiation = createUsers();
 const ingredientHashmap = createIngredientHash();
-
+const shuffleRecipes = shuffle(recipeInstantiation);
 
 let currentUser;
 let modal;
@@ -22,34 +27,15 @@ viewFavsButton.addEventListener('click', viewFavs);
 viewGroceriesButton.addEventListener('click', viewGroceryList);
 whatToCookButton.addEventListener('click', whatToCook);
 grocerySpan.addEventListener('click', closeGroceryModal);
-
-
-function closeGroceryModal() {
-  groceryModal.style.display = "none";
-}
-
-function viewGroceryList() {
-  if (currentUser.thingsToBuy[0] === undefined) {
-    alert ('Your have enough ingredients! No need to go to the store!');
-  } else {
-  let groceryListHTML = '';
-  currentUser.thingsToBuy.forEach(item => {
-    let ingredientNumber = item.ingredient;
-    let ingredientName = ingredientHashmap[ingredientNumber].name;
-    let amountToBuy = item.amountNeeded;
-    let groceryDisplay = amountToBuy + ' ' + ingredientName
-
-    groceryListHTML += groceryDisplay;
-  })
-  document.querySelector('h2').innerHTML = groceryListHTML;
-  groceryModal.style.display = "block"
-}
-}
-
+searchButton.addEventListener('click', displaySearchResults);
+input.addEventListener("keyup", function(event) {
+  if (event.key === 'Enter') {
+    searchButton.click();
+  }
+});
 
 window.onload = displayHandler;
-
-window.onclick = event => {
+window.onclick = function(event) {
   if (event.target === modal) {
     modal.style.display = "none";
   }
@@ -59,6 +45,11 @@ function displayHandler() {
   showRecipes(recipeInstantiation);
   showUsers();
   showFilterOptions();
+}
+
+
+function closeGroceryModal() {
+  groceryModal.style.display = "none";
 }
 
 function openModals(event) {
@@ -109,12 +100,91 @@ function toggleFavoriteImage(event) {
   }
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporayValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporayValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporayValue;
+  }
+  return array;
+}
+
 function whatToCook() {
-  showRecipes(currentUser.recipesToCook);
+  if (!currentUser) {
+    alert ('Pick a user then add a recipe to cook first!');
+  } else if (!currentUser.recipesToCook.length) {
+    alert ('Add a recipe to cook first!');
+  } else {
+    document.querySelector('#filter-text').innerText = "Filter your recipes";
+    showRecipes(currentUser.recipesToCook);
+    searchButtonCookListenHandler();
+    searchButtonCookFilterHandler();
+  }
+}
+
+function displayCookSearchResults() {
+  let userResults = recipeInstantiation[0].searchRecipeByIngredient(input.value, currentUser.recipesToCook);
+  showRecipes(userResults);
+}
+function searchButtonCookFilterHandler() {
+  filterDropDown.setAttribute("onchange", "filterByType(this, currentUser.recipesToCook)");
+}
+
+function searchButtonCookListenHandler() {
+  searchButton.removeEventListener('click', displaySearchResults)
+  searchButton.addEventListener('click', displayCookSearchResults);
 }
 
 function viewFavs() {
-  showRecipes(currentUser.favoriteRecipes)
+  if (!currentUser) {
+    alert ('Pick a user then favorite a recipe first!');
+  } else if (!currentUser.favoriteRecipes.length) {
+    alert ('Favorite a recipe first!');
+  } else {
+    searchText.placeholder = "-- Search your recipes --";
+    filterText.innerText = "Filter your recipes";
+    showRecipes(currentUser.favoriteRecipes);
+    searchButtonFavListenHandler();
+    searchButtonFavFilterHandler();
+  }
+}
+
+function searchButtonFavFilterHandler() {
+  filterDropDown.setAttribute("onchange", "filterByType(this, currentUser.favoriteRecipes)");
+}
+
+function searchButtonFavListenHandler() {
+  searchButton.removeEventListener('click', displaySearchResults)
+  searchButton.addEventListener('click', displayFavSearchResults);
+}
+
+function displayFavSearchResults() {
+  let userResults = recipeInstantiation[0].searchRecipeByIngredient(input.value, currentUser.favoriteRecipes);
+  showRecipes(userResults);
+}
+
+function viewGroceryList() {
+  if (!currentUser) {
+    alert ('Pick a user then create a grocery list for your recipe!');
+  } else {
+    if (currentUser.thingsToBuy[0] === undefined) {
+      alert ('You have enough ingredients! No need to go to the store!');
+    } else {
+      let groceryListHTML = '';
+      currentUser.thingsToBuy.forEach(item => {
+        let ingredientNumber = item.ingredient;
+        let ingredientName = ingredientHashmap[ingredientNumber].name;
+        let amountToBuy = item.amountNeeded;
+        let groceryDisplay = amountToBuy + ' ' + ingredientName
+        groceryListHTML += groceryDisplay;
+      })
+      grocerySpan.insertAdjacentHTML('afterend', groceryListHTML)
+      groceryModal.style.display = "block";
+    }
+  }
 }
 
 function addFavoriteRecipe() {
@@ -144,7 +214,6 @@ function addGroceryList() {
     }
   })
 }
-
 
 function createUsers() {
   const userInstances = [];
@@ -200,8 +269,8 @@ function identifyFilterOptions() {
   return filterOptions;
 }
 
-function filterByType(type) {
-  let filteredRecipe = recipeInstantiation.reduce((filteredRecipes, recipe) => {
+function filterByType(type, recipesContainer) {
+  let filteredRecipe = recipesContainer.reduce((filteredRecipes, recipe) => {
     recipe.tags.forEach(tag => {
       if (tag === type.value) {
         filteredRecipes.push(recipe)
@@ -225,16 +294,15 @@ function chooseUser(option) {
 function showRecipes(recipes) {
   let recipeHTML = '';
   recipes.forEach(recipe => {
-    const recipeNames = recipe.getIngredients();
     const showInstructions = recipe.getInstructions();
     let instructionsHTML = showInstructions.reduce((instructionDetail, instruction) => {
       instructionDetail += `<li>${instruction}</li>`;
       return instructionDetail;
     }, '')
     const amounts = recipe.getAmounts();
-    const ingredientNames = recipe.getIngredients()
+    const ingredientNames = recipe.getIngredients();
     const combineIngredientInfo = amounts.map((value, index) => {
-      return value + ingredientNames[index]
+      return value + ingredientNames[index];
     })
     const ingredientsHTML = combineIngredientInfo.reduce((displayData, info) => {
       displayData += `<li>${info}</li>`;
@@ -248,8 +316,8 @@ function showRecipes(recipes) {
                             <div class="body__main__section__article__modal__content">
                               <span class="close">&times;</span>
                               <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25" title="Add Recipe To Favorites">
-                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25" title="Add Missing Ingredients To Grocery List">
                               <img class="cook-button" src="../assets/cooking.svg" height="25" width="25" title="Add Recipe To Your Cook List">
+                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25" title="Add Missing Ingredients To Grocery List">
                               <div clas="body__main__section__article__modal__content__wrapper">
                                 <h2>${recipe.name}</h2>
                                 <div class="body__main__section__article__modal__content__wrapper__div">
@@ -273,4 +341,17 @@ function showRecipes(recipes) {
   favoriteListener();
   groceryListener();
   cookListener();
+}
+
+function returnSearchResults() {
+  return recipeInstantiation[0].searchRecipeByIngredient(input.value.toLowerCase(), recipeInstantiation);
+}
+
+function displaySearchResults() {
+  let results = returnSearchResults();
+  if (!results) {
+    alert ('No recipes with that ingredient!');
+  } else {
+    showRecipes(results);
+  }
 }

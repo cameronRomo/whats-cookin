@@ -9,22 +9,25 @@ class Recipe {
   }
   //create test to test for 2nd parameter of passing array data
 
-  getAmounts(){
+  getAmounts() {
     return this.ingredients.map(item => {
       item.quantity.amount = +item.quantity.amount.toFixed(2);
       return item.quantity.amount + ' ' + item.quantity.unit + ' ';
     })
   }
 
-  searchRecipeByIngredient(ingredient, recipesContainer) {
-    let searchIngredients =  ingredientsInfo.find(item => {
+  searchRecipeByIngredient(ingredient, recipeContainer) {
+    let searchIngredients =  ingredientsData.find(item => {
       if (ingredient === item.name) {
         return item;
       }
     })
-    let searchRecipes = recipesContainer.reduce((results, recipe) => {
+    if (!searchIngredients) {
+      return null;
+    }
+    let searchRecipes = recipeContainer.reduce((results, recipe) => {
       recipe.ingredients.forEach(item => {
-        if (item.id === searchIngredients.id) {
+        if (item.id === searchIngredients.id && !results.includes(recipe)) {
           results.push(recipe)
         }
       })
