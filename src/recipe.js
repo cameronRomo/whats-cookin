@@ -9,7 +9,7 @@ class Recipe {
   }
   //create test to test for 2nd parameter of passing array data
 
-  getAmounts(){
+  getAmounts() {
     return this.ingredients.map(item => {
       item.quantity.amount = +item.quantity.amount.toFixed(2);
       return item.quantity.amount + ' ' + item.quantity.unit + ' ';
