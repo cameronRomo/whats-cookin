@@ -12,7 +12,7 @@
       <select class="nav__div__one__dropdown" onchange="chooseUser(this)" name="users">
         <option id="user-drop" disabled selected value> -- choose a user -- </option>
       </select>
-      <select id="filter-ingredients" onchange="filterByType(this)" name="users">
+      <select id="filter-ingredients" onchange="filterByType(this, recipeInstantiation)" name="users">
         <option id="filter-text" disabled selected value> -- filter by type -- </option>
         <option id="type-drop" value="all-recipes">All Recipes</option>
       </select>
@@ -27,13 +27,12 @@
     <div class="grocery-modal">
       <div class="grocery-modal-content">
         <span class="grocery-close">&times;</span>
-        <h2></h2>
       </div>
     </div>
   </nav>
   <body class="body">
     <article class="body__article">
-      <img class="body__article__image" src="../assets/jason-briscoe-GliaHAJ3_5A-unsplash.jpg">
+      <img class="body__article__image" src="../assets/jason-briscoe-GliaHAJ3_5A-unsplash.jpg" alt="Large, Clean, Modern Kitchen">
       <div class="nav__content">
         <div class="nav__content__slider-wrapper">
           Time to cook
