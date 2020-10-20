@@ -9,9 +9,12 @@ const allModals = document.getElementsByClassName("body__main__section__article_
 const groceryButton = document.getElementsByClassName('grocery-button');
 const cookButton = document.getElementsByClassName("cook-button");
 const recipeSection = document.querySelector('.body__main__section');
+const input = document.querySelector('input');
+const searchButton = document.querySelector('.nav__div__one__button');
 const recipeInstantiation = createRecipes();
 const userInstantiation = createUsers();
 const ingredientHashmap = createIngredientHash();
+const shuffleRecipes = shuffle(recipeInstantiation);
 
 
 let currentUser;
@@ -22,30 +25,19 @@ viewFavsButton.addEventListener('click', viewFavs);
 viewGroceriesButton.addEventListener('click', viewGroceryList);
 whatToCookButton.addEventListener('click', whatToCook);
 grocerySpan.addEventListener('click', closeGroceryModal);
+searchButton.addEventListener('click', displaySearchResults);
 
-
-function closeGroceryModal() {
-  groceryModal.style.display = "none";
+function shuffle(array) {
+  var currentIndex = array.length, temporayValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporayValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporayValue;
+  }
+  return array;
 }
-
-function viewGroceryList() {
-  if (currentUser.thingsToBuy[0] === undefined) {
-    alert ('Your have enough ingredients! No need to go to the store!');
-  } else {
-  let groceryListHTML = '';
-  currentUser.thingsToBuy.forEach(item => {
-    let ingredientNumber = item.ingredient;
-    let ingredientName = ingredientHashmap[ingredientNumber].name;
-    let amountToBuy = item.amountNeeded;
-    let groceryDisplay = amountToBuy + ' ' + ingredientName
-
-    groceryListHTML += groceryDisplay;
-  })
-  document.querySelector('h2').innerHTML = groceryListHTML;
-  groceryModal.style.display = "block"
-}
-}
-
 
 window.onload = displayHandler;
 
@@ -59,6 +51,28 @@ function displayHandler() {
   showRecipes(recipeInstantiation);
   showUsers();
   showFilterOptions();
+}
+
+
+function closeGroceryModal() {
+  groceryModal.style.display = "none";
+}
+
+function viewGroceryList() {
+  if (currentUser.thingsToBuy[0] === undefined) {
+    alert ('Your have enough ingredients! No need to go to the store!');
+  } else {
+    let groceryListHTML = '';
+    currentUser.thingsToBuy.forEach(item => {
+      let ingredientNumber = item.ingredient;
+      let ingredientName = ingredientHashmap[ingredientNumber].name;
+      let amountToBuy = item.amountNeeded;
+      let groceryDisplay = amountToBuy + ' ' + ingredientName
+      groceryListHTML += groceryDisplay;
+    })
+    document.querySelector('h2').innerHTML = groceryListHTML;
+    groceryModal.style.display = "block"
+  }
 }
 
 function openModals(event) {
@@ -273,4 +287,17 @@ function showRecipes(recipes) {
   favoriteListener();
   groceryListener();
   cookListener();
+}
+
+function returnSearchResults() {
+  return recipeInstantiation[0].searchRecipeByIngredient(input.value.toLowerCase(), recipeInstantiation);
+}
+
+function displaySearchResults() {
+  let results = returnSearchResults();
+  if (!results) {
+    alert ('No recipes with that ingredient!');
+  } else {
+    showRecipes(results);
+  }
 }
