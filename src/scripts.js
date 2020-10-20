@@ -2,7 +2,7 @@ const whatToCookButton = document.getElementById('cook-button');
 const viewFavsButton = document.getElementById('favorite-button');
 const viewGroceriesButton = document.getElementById('grocery-button');
 const span = document.getElementsByClassName("close");
-const grocerySpan = document.getElementsByClassName('grocery-close');
+const grocerySpan = document.querySelector('.grocery-close');
 const groceryModal = document.getElementsByClassName('grocery-modal')[0];
 const favoriteButton = document.getElementsByClassName('favorite-button');
 const allModals = document.getElementsByClassName("body__main__section__article__button");
@@ -19,9 +19,9 @@ let modal;
 let currentRecipe;
 
 viewFavsButton.addEventListener('click', viewFavs);
-//viewGroceriesButton.addEventListener('click', viewGroceryList);
+viewGroceriesButton.addEventListener('click', viewGroceryList);
 whatToCookButton.addEventListener('click', whatToCook);
-
+grocerySpan.addEventListener('click', closeGroceryModal);
 
 
 // window.onclick = function(event) {
@@ -34,28 +34,25 @@ whatToCookButton.addEventListener('click', whatToCook);
 //   groceryModal.style.display = "none";
 // }
 
+function closeGroceryModal() {
+   groceryModal.style.display = "none";
+}
 
+function viewGroceryList() {
 
-// function viewGroceryList() {
+  let groceryListHTML = '';
+  currentUser.thingsToBuy.forEach(item => {
 
-//   let groceryListHTML = '';
-//   currentUser.thingsToBuy.forEach(item => {
+    let ingredientNumber = item.ingredient;
+    let ingredientName = ingredientHashmap[ingredientNumber].name;
+    let amountToBuy = item.amountNeeded;
+    let groceryDisplay = ingredientName + ' ' + amountToBuy
 
-//   //  let ingredientNumber = item.ingredient;
-//     //let ingredientName = ingredientHashmap[ingredientNumber].name;
-//    // let amountToBuy = item.amountNeeded;
-//     let groceryDisplay = ` <div class="grocery-modal-content">
-//                             <span class="grocery-close">&times;</span>
-//                                 <h2>${item}</h2>
-//                             </div>
-//                           </div>
-//                           `
-
-//     groceryListHTML += groceryDisplay;
-//   })
-//   recipeSection.innerHTML = groceryListHTML;
-//   groceryModal.style.display = "block"
-// }
+    groceryListHTML += groceryDisplay;
+  })
+  document.querySelector('h2').innerText = groceryListHTML;
+  groceryModal.style.display = "block"
+}
 
 
 window.onload = displayHandler;
