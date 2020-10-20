@@ -139,6 +139,12 @@ describe('Recipe', function() {
       expect(findRecipe).to.deep.equal([recipe1]);
     })
 
+    it('should search recipe by name', function() {
+      let recipeContainerData = [recipe1];
+      let recipeName = "Dirty Steve's Original Wing Sauce";
+      let findRecipe = recipe1.searchRecipeByName("Dirty Steve's Original Wing Sauce", recipeContainerData);
+      expect(findRecipe).to.deep.equal([recipe1]);
+    })
 
     // it('should get ingredients', function() {
     //   ingredientHashmap = {20081: {id: 20081, name: "wheat flour", estimatedCostInCents: 142},
