@@ -46,12 +46,20 @@
 ## Features
 
 #### Take 1:
-- When entering the site the user is presented with the website
-  * From here they can scroll through recipes, view them, filter by type, and search by ingredient.
+* When entering the site the user is presented with the website
+  - From here they can scroll through recipes, view them, filter by type, and search by ingredient.
 
 ![at a glance](https://user-images.githubusercontent.com/63012953/96791694-232c1800-13b6-11eb-9185-d41e9f55d576.gif)
 
+#### Take 2:
+* When choose a user is utilized, the user can now add a recipe to their favorites.
+  - To do this a recipe must be viewed in the modal and the star icon must be clicked
+  - Once one or more recipes have been stared, the user can then view them by clicking on the **Favorite Recipes** button
+    - A display of all the favorited recipes will then take the place of the recipes main page
+    - To go back to all recipes simply use the filter recipes dropdown and select **All Recipes**
+
 ![view favorites](https://user-images.githubusercontent.com/63012953/96791765-4951b800-13b6-11eb-8298-42fe63384b76.gif)
+
 
 ![what to cook](https://user-images.githubusercontent.com/63012953/96791796-5c648800-13b6-11eb-9fff-714aa4ee515b.gif)
 
