@@ -1,60 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./styles.css">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='./styles.css'>
   </head>
   <title>Whats Cooking</title>
-  <nav class="nav">
-    <div class="nav__div__one">
-      <label class="nav__div__one__user" for="users">Choose a user:</label>
-      <select class="nav__div__one__dropdown" onchange="chooseUser(this)" name="users">
-        <option id="user-drop" disabled selected value> -- choose a user -- </option>
+  <nav class='nav'>
+    <div class='nav__div__one'>
+      <label class='nav__div__one__user' for='users'>Choose a user:</label>
+      <select class='nav__div__one__dropdown' onchange='chooseUser(this)' name='users'>
+        <option id='user-drop' disabled selected value> -- choose a user -- </option>
       </select>
-      <select id="filter-ingredients" onchange="filterByType(this, recipeInstantiation)" name="users">
-        <option id="filter-text" disabled selected value> -- filter by type -- </option>
-        <option id="type-drop" value="all-recipes">All Recipes</option>
+      <select id='filter-ingredients' onchange='filterByType(this, recipeInstantiation)' name='users'>
+        <option id='filter-text' disabled selected value> -- filter by type -- </option>
+        <option id='type-drop' value='all-recipes'>All Recipes</option>
       </select>
-      <input class="nav__div__one__input" type="text" placeholder="Search By Ingredient..">
-      <button class="nav__div__one__button" type="submit"></button>
+      <input class='nav__div__one__input' type='text' placeholder='Search By Ingredient..'>
+      <button class='nav__div__one__button' type='submit'></button>
     </div>
-    <div class="nav__div__two">
-      <button class="nav__div__two__button" id="cook-button">WHAT TO COOK</button>
-      <button class="nav__div__two__button" id="favorite-button">FAVORITE RECIPES</button>
-      <button class="nav__div__two__button" id="grocery-button">YOUR GROCERY LIST</button>
+    <div class='nav__div__two'>
+      <button class='nav__div__two__button' id='cook-button'>WHAT TO COOK</button>
+      <button class='nav__div__two__button' id='favorite-button'>FAVORITE RECIPES</button>
+      <button class='nav__div__two__button' id='grocery-button'>YOUR GROCERY LIST</button>
     <div>
-    <div class="grocery-modal">
-      <div class="grocery-modal-content">
-        <span class="grocery-close">&times;</span>
+    <div class='grocery-modal'>
+      <div class='grocery-modal-content'>
+        <span class='grocery-close'>&times;</span>
       </div>
     </div>
   </nav>
-  <body class="body">
-    <article class="body__article">
-      <img class="body__article__image" src="../assets/jason-briscoe-GliaHAJ3_5A-unsplash.jpg" alt="Large, Clean, Modern Kitchen">
-      <div class="nav__content">
-        <div class="nav__content__slider-wrapper">
+  <body class='body'>
+    <article class='body__article'>
+      <img class='body__article__image' src='../assets/jason-briscoe-GliaHAJ3_5A-unsplash.jpg' alt='Large, Clean, Modern Kitchen'>
+      <div class='nav__content'>
+        <div class='nav__content__slider-wrapper'>
           Time to cook
-          <div class="nav__content__slider">
-              <div class="nav__content__slider-text1">DINNER</div>
-              <div class="nav__content__slider-text2">LUNCH</div>
-              <div class="nav__content__slider-text3">BREAKFAST</div>
+          <div class='nav__content__slider'>
+              <div class='nav__content__slider-text1'>DINNER</div>
+              <div class='nav__content__slider-text2'>LUNCH</div>
+              <div class='nav__content__slider-text3'>BREAKFAST</div>
           </div>
         </div>
       </div>
     </article>
-    <main class="body__main">
-      <section class="body__main__section">
+    <main class='body__main'>
+      <section class='body__main__section'>
       </section>
     </main>
-    <div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div><div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-    <script type="text/javascript" src="../data/users.js"></script>
-    <script type="text/javascript" src="../data/recipes.js"></script>
-    <script type="text/javascript" src="../data/ingredients.js"></script>
-    <script type="text/javascript" src="../src/recipe.js"></script>
-    <script type="text/javascript" src="../src/pantry.js"></script>
-    <script type="text/javascript" src="../src/user.js"></script>
-    <script type="text/javascript" src="./scripts.js"></script>
+    <script type='text/javascript' src='../data/users.js'></script>
+    <script type='text/javascript' src='../data/recipes.js'></script>
+    <script type='text/javascript' src='../data/ingredients.js'></script>
+    <script type='text/javascript' src='../src/recipe.js'></script>
+    <script type='text/javascript' src='../src/pantry.js'></script>
+    <script type='text/javascript' src='../src/user.js'></script>
+    <script type='text/javascript' src='./scripts.js'></script>
   </body>
 </html>
