@@ -144,7 +144,7 @@ body {
   height: 50px;
   padding-left:15px;
   overflow: hidden;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .nav__content__slider div {
@@ -233,7 +233,7 @@ body {
 .nav__div__one__button {
   height: 39px;
   width: 39px;
-  background-image: url("../assets/loupe.svg");
+  background-image: url('../assets/loupe.svg');
 
 }
 
