@@ -55,6 +55,7 @@ function closeGroceryModal() {
 function openModals(event) {
   let eventId = event.target.id;
   currentRecipe = eventId;
+  modal = document.getElementById(eventId + 'modal');
   modal.style.display = 'block';
 }
 
@@ -72,7 +73,7 @@ function cookListener() {
 
 function modalCloseListener() {
   for (let i = 0; i < span.length; i++) {
-    span[i].addEventListener('click', function() {
+    span[i].addEventListener('click', () => {
       modal.style.display = "none";
     })
   }
@@ -93,9 +94,9 @@ function groceryListener() {
 
 function toggleFavoriteImage(event) {
   if (event.target.src.includes('assets/002-star.svg')) {
-    event.target.src = '../assets/001-favorite.svg';
+    event.target.src = '../assets/001-favorite.svg'
   } else {
-    event.target.src = '../assets/002-star.svg';
+    event.target.src = '../assets/002-star.svg'
   }
 }
 
@@ -133,7 +134,7 @@ function searchButtonCookFilterHandler() {
 }
 
 function searchButtonCookListenHandler() {
-  searchButton.removeEventListener('click', displaySearchResults);
+  searchButton.removeEventListener('click', displaySearchResults)
   searchButton.addEventListener('click', displayCookSearchResults);
 }
 
@@ -156,7 +157,7 @@ function searchButtonFavFilterHandler() {
 }
 
 function searchButtonFavListenHandler() {
-  searchButton.removeEventListener('click', displaySearchResults);
+  searchButton.removeEventListener('click', displaySearchResults)
   searchButton.addEventListener('click', displayFavSearchResults);
 }
 
@@ -177,7 +178,7 @@ function viewGroceryList() {
         let ingredientNumber = item.ingredient;
         let ingredientName = ingredientHashmap[ingredientNumber].name;
         let amountToBuy = item.amountNeeded;
-        let groceryDisplay = amountToBuy + ' ' + ingredientName;
+        let groceryDisplay = amountToBuy + ' ' + ingredientName
         groceryListHTML += groceryDisplay;
       })
       grocerySpan.insertAdjacentHTML('afterend', groceryListHTML)
@@ -226,7 +227,7 @@ function createUsers() {
 function createIngredientHash() {
   return ingredientsData.reduce((ingredientDetails, ingredient) => {
     ingredientDetails[ingredient.id] = ingredient;
-    return ingredientDetails;
+    return ingredientDetails
   }, {})
 }
 
@@ -241,10 +242,10 @@ function createRecipes() {
 
 function showUsers() {
   let userDropDownList = userInstantiation.reduce((usersHTML, user) => {
-    usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`;
+    usersHTML += `<option class="nav__div__one__dropdown__choice" value="${user.name}">${user.name}</option>`
     return usersHTML;
   }, '')
-  document.querySelector('#user-drop').insertAdjacentHTML("afterend", userDropDownList);
+  document.querySelector('#user-drop').insertAdjacentHTML("afterend", userDropDownList)
 }
 
 function showFilterOptions() {
@@ -253,7 +254,7 @@ function showFilterOptions() {
     tagHTML += `<option class="nav__div__one__dropdown__choice" value="${tag}">${tag}</option>`;
     return tagHTML;
   }, '');
-  document.querySelector('#type-drop').insertAdjacentHTML("afterend", showOptions);
+  document.querySelector('#type-drop').insertAdjacentHTML("afterend", showOptions)
 }
 
 function identifyFilterOptions() {
@@ -272,7 +273,7 @@ function filterByType(type, recipesContainer) {
   let filteredRecipe = recipesContainer.reduce((filteredRecipes, recipe) => {
     recipe.tags.forEach(tag => {
       if (tag === type.value) {
-        filteredRecipes.push(recipe);
+        filteredRecipes.push(recipe)
       }
     })
     return filteredRecipes;
@@ -308,30 +309,30 @@ function showRecipes(recipes) {
       return displayData;
     }, '')
     let recipeDisplay = `<article class="body__main__section__article">
-                           <img class="body__main__section__article__image" src="${recipe.image}">
-                           <div class="body__main__section__article__text">${recipe.name}</div>
-                           <button class="body__main__section__article__button" id="${recipe.id}">Open Recipe</button>
-                           <div class="body__main__section__article__modal" id="${recipe.id + 'modal'}">
-                             <div class="body__main__section__article__modal__content">
-                               <span class="close">&times;</span>
-                               <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25" title="Add Recipe To Favorites">
-                               <img class="cook-button" src="../assets/cooking.svg" height="25" width="25" title="Add Recipe To Your Cook List">
-                               <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25" title="Add Missing Ingredients To Grocery List">
-                               <div clas="body__main__section__article__modal__content__wrapper">
-                                 <h2>${recipe.name}</h2>
-                                 <div class="body__main__section__article__modal__content__wrapper__div">
-                                   <img src="${recipe.image}" alt="${recipe.name}">
-                                   <ul>
-                                   ${ingredientsHTML}
-                                   </ul>
-                                 </div>
-                                  <ol>
-                                  ${instructionsHTML}
-                                  </ol>
+                          <img class="body__main__section__article__image" src="${recipe.image}">
+                          <div class="body__main__section__article__text">${recipe.name}</div>
+                          <button class="body__main__section__article__button" id="${recipe.id}">Open Recipe</button>
+                          <div class="body__main__section__article__modal" id="${recipe.id + 'modal'}">
+                            <div class="body__main__section__article__modal__content">
+                              <span class="close">&times;</span>
+                              <img class="favorite-button" src="../assets/002-star.svg" height="25" width="25" title="Add Recipe To Favorites">
+                              <img class="cook-button" src="../assets/cooking.svg" height="25" width="25" title="Add Recipe To Your Cook List">
+                              <img class="grocery-button" src="../assets/grocery-cart.svg" height="25" width="25" title="Add Missing Ingredients To Grocery List">
+                              <div clas="body__main__section__article__modal__content__wrapper">
+                                <h2>${recipe.name}</h2>
+                                <div class="body__main__section__article__modal__content__wrapper__div">
+                                  <img src="${recipe.image}" alt="${recipe.name}">
+                                  <ul>
+                                  ${ingredientsHTML}
+                                  </ul>
                                 </div>
+                                <ol>
+                                  ${instructionsHTML}
+                                </ol>
                               </div>
                             </div>
-                         </article>`;
+                          </div>
+                        </article>`;
     recipeHTML += recipeDisplay;
   })
   recipeSection.innerHTML = recipeHTML;
