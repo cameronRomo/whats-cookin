@@ -24,6 +24,13 @@
 * [Color Safe Color Picker](http://colorsafe.co/)
 * [Flaticon](https://www.flaticon.com/)
 
+## Wins
+* Displaying data in a modal view
+* Successfully filtering through data with iterator methods
+* Using the GitHub project board along with issues and labels
+* Utilizing TDD
+* More success with OOP
+
 
 
 The details of this project are outlined in this <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
