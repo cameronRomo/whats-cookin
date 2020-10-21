@@ -14,6 +14,16 @@
 * Run `npm install`
 * Deploy site by running: `open src/index.html`
 
+### Technologies used:
+* JavaScript
+* HTML
+* CSS
+* git
+* GitHub
+* Terminal
+* [Color Safe Color Picker](http://colorsafe.co/)
+* [Flaticon](https://www.flaticon.com/)
+
 
 
 The details of this project are outlined in this <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
