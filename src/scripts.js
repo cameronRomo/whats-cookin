@@ -94,9 +94,9 @@ function groceryListener() {
 
 function toggleFavoriteImage(event) {
   if (event.target.src.includes('assets/002-star.svg')) {
-    event.target.src = '../assets/001-favorite.svg'
+    event.target.src = './assets/001-favorite.svg'
   } else {
-    event.target.src = '../assets/002-star.svg'
+    event.target.src = './assets/002-star.svg'
   }
 }
 
@@ -317,9 +317,9 @@ function showRecipes(recipes) {
                           <div class='body__main__section__article__modal' id='${recipe.id + 'modal'}'>
                             <div class='body__main__section__article__modal__content'>
                               <span class='close'>&times;</span>
-                              <img class='favorite-button' src='../assets/002-star.svg' height='25' width='25' title='Add Recipe To Favorites'>
-                              <img class='cook-button' src='../assets/cooking.svg' height='25' width='25' title='Add Recipe To Your Cook List'>
-                              <img class='grocery-button' src='../assets/grocery-cart.svg' height='25' width='25' title='Add Missing Ingredients To Grocery List'>
+                              <img class='favorite-button' src='./assets/002-star.svg' height='25' width='25' title='Add Recipe To Favorites'>
+                              <img class='cook-button' src='./assets/cooking.svg' height='25' width='25' title='Add Recipe To Your Cook List'>
+                              <img class='grocery-button' src='./assets/grocery-cart.svg' height='25' width='25' title='Add Missing Ingredients To Grocery List'>
                               <div clas='body__main__section__article__modal__content__wrapper'>
                                 <h2>${recipe.name}</h2>
                                 <div class='body__main__section__article__modal__content__wrapper__div'>
