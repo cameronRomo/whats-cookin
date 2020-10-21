@@ -43,7 +43,19 @@
   * Seeing the utility of an ingredients class
   * More thoughtful TDD
 
+## Features
 
+#### Take 1:
+- When entering the site the user is presented with the website
+  * From here they can scroll through recipes, view them, filter by type, and search by ingredient.
+
+![at a glance](https://user-images.githubusercontent.com/63012953/96791694-232c1800-13b6-11eb-9185-d41e9f55d576.gif)
+
+![view favorites](https://user-images.githubusercontent.com/63012953/96791765-4951b800-13b6-11eb-8298-42fe63384b76.gif)
+
+![what to cook](https://user-images.githubusercontent.com/63012953/96791796-5c648800-13b6-11eb-9fff-714aa4ee515b.gif)
+
+![grocery list](https://user-images.githubusercontent.com/63012953/96791846-730adf00-13b6-11eb-866e-c17c5dee4ca9.gif)
 
 
 The details of this project are outlined in this <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
