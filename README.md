@@ -60,18 +60,18 @@
 
 ![view favorites](https://user-images.githubusercontent.com/63012953/96791765-4951b800-13b6-11eb-8298-42fe63384b76.gif)
 
+#### Take 3:
+* When a user is still specified a what to cook option is available to add recipes to cook that week
+  - To populate this view, simply open a recipe to add and click the cook icon in the upper left-hand corner.
 
 ![what to cook](https://user-images.githubusercontent.com/63012953/96791796-5c648800-13b6-11eb-9fff-714aa4ee515b.gif)
+
+#### Take 4:
+* Under user still, there is an option to check what items are still needed. This can be accessed by clicking the **Your Grocery List** button.
+  * First groceries must be added by viewing a recipe and clicking the cart icon.
+  * After groceries have been added and the **Your Grocery List** button has been clicked -- a modal will pop up displaying the amount of each ingredient that will need to be purchased in order to cook the meals added.
 
 ![grocery list](https://user-images.githubusercontent.com/63012953/96791846-730adf00-13b6-11eb-866e-c17c5dee4ca9.gif)
 
 
 The details of this project are outlined in this <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
-
-## Set Up
-
-1. Within your group, decide on one person to have the project repository on their Github account. This person will *fork* this repository - on the top right corner of the page, click the fork button.
-2. Both group members should then clone down the forked repository (make sure that everyone is added as a collaborator as well). Since you don't want your project to be named "whats-cookin-starter-kit", add an optional argument after the repo url when cloning. The command should look like this: `git clone [remote-address] [what you want to name the repo]`.
-3. Once you have cloned the repo, change into the directory and install the project dependencies. Run npm install to install project dependencies.
-4. Run open src/index.html in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page)
-5. Make sure both members of your team are collaborators on the forked repo.
