@@ -17,6 +17,7 @@ class User {
       this.favoriteRecipes.splice(recipe, 1);
     }
   }
+
   addRecipeToCook(recipe) {
     this.recipesToCook.push(recipe);
   }
@@ -24,15 +25,6 @@ class User {
   addIngredientToGroceryList(ingredients) {
     this.thingsToBuy.push(ingredients);
   }
-
-//   filterUserRecipe(recipeTag, recipesContainer) {
-//     //invoke from Recipe class
-//     filterRecipe(recipeTag, recipesContainer);
-//   }
-
-//   searchUserRecipe(ingredient) {
-//     searchRecipeByIngredient(ingredient, this.favoriteRecipes);
-//   }
 }
 
 if (typeof module !== 'undefined') {
