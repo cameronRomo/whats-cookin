@@ -6,9 +6,11 @@
 
 ## Context
 
+[Deploy Site](https://mdflynn.github.io/whats-cookin/)
+
 <details>
   <summary>**Set up**</summary>
-  
+
 * *Click* the **Fork** button on the top right-hand corner of this page
 * Clone the repository down and cd into the repo on your local machine by running:
   * `git clone <url>`
@@ -53,7 +55,7 @@
 * When entering the site the user is presented with the website
   - From here they can scroll through recipes, view them, filter by type, and search by ingredient.
 
-![at a glance](https://user-images.githubusercontent.com/63012953/96791694-232c1800-13b6-11eb-9185-d41e9f55d576.gif)
+![at a glance](https://user-images.githubusercontent.com/63012953/96791694-232c1800-13b6-11eb-9185-d41e9f55d576.gif =600x300)
 
 #### Take 2:
 * When choose a user is utilized, the user can now add a recipe to their favorites.
@@ -62,20 +64,20 @@
     - A display of all the favorited recipes will then take the place of the recipes main page
     - To go back to all recipes simply use the filter recipes dropdown and select **All Recipes**
 
-![view favorites](https://user-images.githubusercontent.com/63012953/96791765-4951b800-13b6-11eb-8298-42fe63384b76.gif)
+![view favorites](https://user-images.githubusercontent.com/63012953/96791765-4951b800-13b6-11eb-8298-42fe63384b76.gif =600x300)
 
 #### Take 3:
 * When a user is still specified a what to cook option is available to add recipes to cook that week
   - To populate this view, simply open a recipe to add and click the cook icon in the upper left-hand corner.
 
-![what to cook](https://user-images.githubusercontent.com/63012953/96791796-5c648800-13b6-11eb-9fff-714aa4ee515b.gif)
+![what to cook](https://user-images.githubusercontent.com/63012953/96791796-5c648800-13b6-11eb-9fff-714aa4ee515b.gif =600x300)
 
 #### Take 4:
 * Under user still, there is an option to check what items are still needed. This can be accessed by clicking the **Your Grocery List** button.
   * First groceries must be added by viewing a recipe and clicking the cart icon.
   * After groceries have been added and the **Your Grocery List** button has been clicked -- a modal will pop up displaying the amount of each ingredient that will need to be purchased in order to cook the meals added.
 
-![grocery list](https://user-images.githubusercontent.com/63012953/96791846-730adf00-13b6-11eb-866e-c17c5dee4ca9.gif)
+![grocery list](https://user-images.githubusercontent.com/63012953/96791846-730adf00-13b6-11eb-866e-c17c5dee4ca9.gif =600x300)
 
 
 The details of this project are outlined in this <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
