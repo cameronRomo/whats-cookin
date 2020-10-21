@@ -4,6 +4,17 @@
   - [Mike Flynn](https://github.com/mdflynn)
   - [Cameron Romo](https://github.com/cameronRomo)
 
+## Context
+
+### Set up
+* *Click* the **Fork** button on the top right-hand corner of this page
+* Clone the repository down and cd into the repo on your local machine by running:
+  * `git clone <url>`
+  * `cd whats-cookin`
+* Run `npm install`
+* Deploy site by running: `open src/index.html`
+
+
 
 The details of this project are outlined in this <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
 
