@@ -31,6 +31,19 @@
 * Utilizing TDD
 * More success with OOP
 
+## Challenges
+* Understanding the complexity of the incoming nested data types
+* Knowing what to test for
+* Understanding exactly what classes are needed
+* Developing model views
+
+## Lessons Learned
+* More elaborate planning would have helped with:
+  * Understanding the flow between classes
+  * Seeing the utility of an ingredients class
+  * More thoughtful TDD
+
+
 
 
 The details of this project are outlined in this <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
