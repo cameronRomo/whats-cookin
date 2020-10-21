@@ -7,8 +7,9 @@ const Recipe = require('../src/Recipe');
 describe('User', function() {
 
   let user;
+
   beforeEach(() => {
-    user = new User();
+    user = new User()
   })
 
   it('should be a function', function() {
@@ -26,7 +27,6 @@ describe('User', function() {
   it('should contain a User\s recipes to cook', function() {
     expect(user.recipesToCook).to.deep.equal([]);
   });
-
 });
 
 describe('User Methods', function() {
@@ -35,29 +35,29 @@ describe('User Methods', function() {
   let recipe1;
   let id = 1;
   let name = "Dirty Steve's Original Wing Sauce";
-  let image = "https://spoonacular.com/recipeImages/595736-556x370.jpg";
+  let image = 'https://spoonacular.com/recipeImages/595736-556x370.jpg';
   let instructions = [{
-    "instruction": "In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
-    "number": 1
+    'instruction': 'In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.',
+    'number': 1
   },
   {
-    "instruction": "Add egg and vanilla and mix until combined.",
-    "number": 2
+    'instruction': 'Add egg and vanilla and mix until combined.',
+    'number': 2
   }];
   let ingredients = [{
-    "id": 20081,
-    "quantity": {
-      "amount": 1.5,
-      "unit": "c"
+    'id': 20081,
+    'quantity': {
+      'amount': 1.5,
+      'unit': 'c'
     }},
   {
-    "id": 18372,
-    "quantity": {
-      "amount": 2,
-      "unit": "c"
+    'id': 18372,
+    'quantity': {
+      'amount': 2,
+      'unit': 'c'
     }
   }];
-  let tags = ["sauce", "topping"];
+  let tags = ['sauce', 'topping'];
   let recipeArray;
 
   beforeEach(() => {
@@ -65,10 +65,12 @@ describe('User Methods', function() {
     user = new User();
     recipeArray = [recipe1];
   });
+
   it('should be able to favorite a recipe', function() {
     user.addToFavoriteRecipes(recipe1);
     expect(user.favoriteRecipes).to.deep.equal(recipeArray);
   });
+
   it('should remove a favorite recipe if unfavorited', function() {
     recipe1.favoritedRecipe = true;
     user.addToFavoriteRecipes(recipe1);
